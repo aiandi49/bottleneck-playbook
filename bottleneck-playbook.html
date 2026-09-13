@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bottleneck Playbook — Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+    --font-body: 'Public Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    --ocean:      #073B4C;
+    --ocean-2:    #0B4F63;
+    --turquoise:  #0FA3B1;
+    --turquoise-2:#0C8A96;
+    --aqua:       #4FD1C5;
+    --seafoam:    #CFF3E7;
+    --seafoam-2:  #E8FAF3;
+    --coral:      #FF8F6B;
+    --ink:        #0B2530;
+    --ink-soft:   #3E5C64;
+    --white:      #FFFFFF;
+    --line:       rgba(7,59,76,0.12);
+
+    --bg:         var(--white);
+    --bg-alt:     var(--seafoam-2);
+    --text:       var(--ink);
+    --text-soft:  var(--ink-soft);
+    --card-bg:    var(--white);
+    --card-line:  var(--line);
+    --header-bg:  rgba(255,255,255,0.86);
+
+    --step: 1;
+    --fs-base: 17px;
+    --radius: 14px;
+    --shadow-soft: 0 20px 50px -25px rgba(7,59,76,0.35);
+    --shadow-card: 0 12px 30px -18px rgba(7,59,76,0.28);
+  }
+
+  html[data-theme="dark"]{
+    --bg:        #06222B;
+    --bg-alt:    #082B36;
+    --text:      #EAF6F5;
+    --text-soft: #A9C7C9;
+    --card-bg:   #0B3542;
+    --card-line: rgba(207,243,231,0.14);
+    --header-bg: rgba(6,34,43,0.86);
+    --line:      rgba(207,243,231,0.14);
+    --shadow-soft: 0 20px 50px -20px rgba(0,0,0,0.55);
+    --shadow-card: 0 12px 30px -18px rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .35s ease, color .35s ease;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  .wrap{
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  h1,h2,h3,h4{
+    font-family: var(--font-display);
+    color: var(--text);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  p{ margin: 0 0 1em; color: var(--text-soft); }
+  ul{ margin:0; padding:0; }
+  .eyebrow-num{
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position: sticky; top:0; z-index: 50;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 12px;
+    padding: 14px 24px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+  .brand-mark{
+    width: 30px; height:30px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    flex-shrink:0;
+    position: relative;
+  }
+  .brand-mark::after{
+    content:"";
+    position:absolute; inset: 8px;
+    border-radius: 4px;
+    background: var(--white);
+    opacity:.85;
+  }
+  .controls{
+    display:flex; align-items:center; gap: 10px;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+  }
+  .progress-chip{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    border-radius: 999px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+  html[data-theme="dark"] .progress-chip{
+    background: rgba(79,209,197,0.16);
+    color: var(--aqua);
+  }
+  .fs-group, .theme-group{
+    display:flex; align-items:center; gap:4px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .fs-group button, .theme-toggle{
+    border: none; background: transparent;
+    color: var(--text-soft);
+    font-family: var(--font-body);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 6px 10px;
+    line-height: 1;
+    font-size: 0.8rem;
+  }
+  .fs-group button.active{
+    background: var(--turquoise);
+    color: #fff;
+  }
+  .theme-toggle{
+    display:flex; align-items:center; gap:6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  .theme-toggle svg{ width:15px; height:15px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 64px 0 56px;
+    background:
+      radial-gradient(120% 100% at 15% 0%, rgba(79,209,197,0.28), transparent 55%),
+      radial-gradient(120% 100% at 85% 10%, rgba(15,163,177,0.20), transparent 60%),
+      var(--bg);
+    text-align: center;
+  }
+  .hero .wrap{ display:flex; flex-direction:column; align-items:center; }
+  .hero-kicker{
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  html[data-theme="dark"] .hero-kicker{ background: rgba(79,209,197,0.16); color: var(--aqua); }
+  .hero h1{
+    font-size: clamp(2.1rem, 7vw, 4rem);
+    line-height: 1.05;
+    max-width: 16ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--turquoise);
+    font-weight: 500;
+  }
+  .hero p.lede{
+    max-width: 56ch;
+    font-size: clamp(1.02rem, 2.2vw, 1.2rem);
+    margin-top: 20px;
+  }
+  .hero-actions{
+    display:flex; gap:14px; margin-top: 8px; flex-wrap: wrap; justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 24px;
+    border-radius: 999px;
+    text-decoration:none;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--turquoise), var(--ocean-2));
+    color: #fff;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-ghost{
+    background: var(--card-bg);
+    color: var(--text);
+    border-color: var(--card-line);
+  }
+
+  .stat-strip{
+    margin-top: 44px;
+    width: 100%;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    text-align: left;
+  }
+  .stat-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card .num{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--ocean);
+  }
+  html[data-theme="dark"] .stat-card .num{ color: var(--aqua); }
+  .stat-card .lbl{
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
+
+  /* ---------- Section shells ---------- */
+  section{ padding: 68px 0; }
+  .section-alt{ background: var(--bg-alt); }
+  .section-head{
+    text-align:center;
+    max-width: 640px;
+    margin: 0 auto 44px;
+  }
+  .section-head .kicker{
+    font-weight: 700; font-size: 0.85rem; color: var(--turquoise-2);
+    margin-bottom: 10px; display:block;
+  }
+  html[data-theme="dark"] .section-head .kicker{ color: var(--aqua); }
+  .section-head h2{ font-size: clamp(1.6rem, 4.5vw, 2.4rem); }
+  .section-head p{ margin-top: 12px; }
+
+  /* ---------- Setup / context cards ---------- */
+  .context-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .context-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .context-card h3{ font-size: 1.25rem; margin-bottom: 10px;}
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .tag{
+    font-size: 0.78rem; font-weight: 700;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+  }
+  html[data-theme="dark"] .tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .tag.coral{ background: rgba(255,143,107,0.16); color: #C75A36; }
+  html[data-theme="dark"] .tag.coral{ color: var(--coral); }
+
+  /* ---------- Chapters (the 9 moves) ---------- */
+  .chapter{
+    border-top: 1px solid var(--card-line);
+    padding: 46px 0;
+  }
+  .chapter:first-of-type{ border-top: none; }
+  .chapter-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    align-items: start;
+  }
+  .chapter-head{
+    display:flex; align-items:flex-start; gap:16px;
+    margin-bottom: 14px;
+  }
+  .chapter-num{
+    font-size: 2.6rem;
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+    flex-shrink:0;
+  }
+  .chapter-title h3{ font-size: clamp(1.35rem, 3.4vw, 1.75rem); }
+  .chapter-title .subtitle{
+    color: var(--turquoise-2); font-weight: 700; font-size: 0.85rem;
+    margin-top: 4px; display:block;
+  }
+  html[data-theme="dark"] .chapter-title .subtitle{ color: var(--aqua); }
+
+  .term-box{
+    border-left: 4px solid var(--turquoise);
+    background: var(--bg-alt);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .term-box .term-label{
+    font-size: 0.72rem; font-weight: 800; letter-spacing: .04em;
+    color: var(--turquoise-2); margin-bottom: 4px; display:block;
+  }
+  html[data-theme="dark"] .term-box .term-label{ color: var(--aqua); }
+  .term-box p{ margin:0; color: var(--text); font-size: 0.94rem; }
+
+  .checklist-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .checklist-card h4{
+    font-size: 0.95rem; font-family: var(--font-body); font-weight: 800;
+    color: var(--text); margin-bottom: 14px;
+    text-align:left;
+  }
+  .checklist{ list-style:none; text-align:left; }
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--card-line);
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    cursor:pointer;
+  }
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist li input{
+    appearance: none;
+    width: 19px; height:19px; flex-shrink:0;
+    border-radius: 6px;
+    border: 2px solid var(--turquoise);
+    margin-top: 1px;
+    cursor:pointer;
+    position: relative;
+    transition: background .15s ease;
+  }
+  .checklist li input:checked{ background: var(--turquoise); }
+  .checklist li input:checked::after{
+    content:"";
+    position:absolute; left:5px; top:1px;
+    width:5px; height:10px;
+    border: solid white; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .checklist li.done span{
+    text-decoration: line-through;
+    color: var(--text-soft);
+    opacity: .6;
+  }
+  .result-callout{
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(15,163,177,0.10), rgba(79,209,197,0.14));
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--ocean);
+    font-weight: 600;
+  }
+  html[data-theme="dark"] .result-callout{ color: var(--seafoam); background: linear-gradient(135deg, rgba(15,163,177,0.14), rgba(79,209,197,0.10)); }
+
+  /* ---------- Pull quote ---------- */
+  .pullquote{
+    padding: 84px 0;
+    text-align:center;
+    background: linear-gradient(160deg, var(--ocean), var(--ocean-2));
+    color: #fff;
+  }
+  .pullquote .wrap{ max-width: 900px; }
+  .pullquote p{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: #fff;
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    line-height: 1.28;
+    margin-bottom: 18px;
+  }
+  .pullquote .attribution{
+    color: var(--seafoam);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-style: normal;
+  }
+
+  /* ---------- Results ---------- */
+  .results-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .result-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    text-align:center;
+  }
+  .result-card .before-after{
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    margin-top: 10px; flex-wrap: wrap;
+  }
+  .result-card .before-after .from{
+    color: var(--text-soft);
+    text-decoration: line-through;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+  .result-card .before-after .arrow{ color: var(--turquoise); }
+  .result-card .before-after .to{
+    color: var(--ocean);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.55rem;
+  }
+  html[data-theme="dark"] .result-card .before-after .to{ color: var(--aqua); }
+  .result-card .cap{ margin-top: 10px; font-size: 0.85rem; color: var(--text-soft); }
+
+  /* ---------- Pitfalls ---------- */
+  .pitfall-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .pitfall-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--coral);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .pitfall-card h4{ font-size: 1.02rem; margin-bottom: 6px; font-family: var(--font-display); font-weight: 600;}
+  .pitfall-card p{ margin:0; font-size: 0.9rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 50px 0 60px;
+    text-align: center;
+    background: var(--ocean);
+    color: var(--seafoam);
+  }
+  footer .wrap{ max-width: 720px; }
+  footer h3{ color: #fff; font-size: 1.4rem; margin-bottom: 12px; }
+  footer p{ color: rgba(207,243,231,0.85); font-size: 0.92rem; }
+  footer a.src-link{
+    color: #fff; font-weight: 700; text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  footer .disclaimer{
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid rgba(207,243,231,0.2);
+    font-size: 0.78rem; color: rgba(207,243,231,0.6);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (min-width: 640px){
+    .stat-strip{ grid-template-columns: repeat(4, 1fr); }
+    .context-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 900px){
+    .hero{ text-align:left; padding: 90px 0 80px; }
+    .hero .wrap{ align-items:flex-start; }
+    .hero-actions{ justify-content:flex-start; }
+    .hero-top{
+      display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center; width:100%;
+    }
+    .hero-copy{ text-align:left; }
+    .stat-strip{ margin-top:0; }
+
+    .section-head{ text-align:left; margin-left:0; }
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+
+    .chapter-grid{ grid-template-columns: 1.3fr 0.95fr; gap: 44px; }
+    .pitfall-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 1200px){
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ---------- Hub crumb bar ---------- */
+  .crumb-bar{
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .crumb-inner{
+    max-width: 1320px; margin: 0 auto;
+    padding: 9px 24px;
+    display:flex; align-items:center; gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .crumb-inner a{
+    color: var(--turquoise-2);
+    text-decoration: none;
+    display:flex; align-items:center; gap: 5px;
+  }
+  html[data-theme="dark"] .crumb-inner a{ color: var(--aqua); }
+  .crumb-inner a:hover{ text-decoration: underline; }
+  .crumb-sep{ color: var(--text-soft); opacity:.5; }
+  .crumb-current{ color: var(--text-soft); font-weight: 600; }
+
+  :focus-visible{
+    outline: 3px solid var(--turquoise);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Bottleneck Playbook
+    </div>
+    <div class="controls">
+      <span class="progress-chip" id="progressChip">0 / 34 steps done</span>
+      <div class="fs-group" role="group" aria-label="Text size">
+        <button type="button" data-size="0" aria-label="Small text">A-</button>
+        <button type="button" data-size="1" class="active" aria-label="Medium text">A</button>
+        <button type="button" data-size="2" aria-label="Large text">A+</button>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+  <div class="crumb-bar">
+    <div class="crumb-inner">
+      <a href="index.html">&larr; Compass Hub</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">Bottleneck Playbook</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="hero-copy">
+        <span class="hero-kicker">A guided walkthrough, not a highlight reel</span>
+        <h1>Nine moves that turn a <em>capped</em> business into a <em>scaling</em> one.</h1>
+        <p class="lede">Most owners already know the theory. What trips people up is the order of operations — what to fix first, what to leave alone, and what to never touch until the earlier steps are done. This hub breaks a real scaling conversation down into a sequence you can actually follow.</p>
+        <div class="hero-actions">
+          <a href="#chapters" class="btn btn-primary">Start with Move 01</a>
+          <a href="#results" class="btn btn-ghost">Jump to the results</a>
+        </div>
+      </div>
+      <div class="stat-strip" aria-label="Snapshot of the practice used as the working example">
+        <div class="stat-card"><div class="num">1 doctor</div><div class="lbl">handling 3 locations</div></div>
+        <div class="stat-card"><div class="num">25–30</div><div class="lbl">patients/month, hard ceiling</div></div>
+        <div class="stat-card"><div class="num">15–30 days</div><div class="lbl">booked out before treatment</div></div>
+        <div class="stat-card"><div class="num">9 moves</div><div class="lbl">applied over 90 days</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">THE STARTING POINT</span>
+      <h2>One expert, doing everything, everywhere.</h2>
+      <p>The example running through this guide is a real, three-location dental practice. It's a useful case precisely because it's ordinary: one highly skilled owner was personally required for every high-value step of delivery, so the business could only grow as fast as one calendar allowed.</p>
+    </div>
+    <div class="context-grid">
+      <div class="context-card">
+        <h3>The bottleneck</h3>
+        <p>Every implant case needed five visits. The founder personally did all five — including the ones that didn't require his specific skill.</p>
+        <div class="tag-row"><span class="tag">Single point of failure</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The symptom</h3>
+        <p>New patients waited 2–4 weeks just to be diagnosed. By the time they were seen, some had already gone elsewhere.</p>
+        <div class="tag-row"><span class="tag coral">Lost revenue</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The hidden cost</h3>
+        <p>Pricing had barely moved in years, despite an 85%+ close rate — usually a sign that price is set well below what the market will bear.</p>
+        <div class="tag-row"><span class="tag">Underpriced</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The goal</h3>
+        <p>Grow from roughly $2M to $15M a year — without the founder simply working more hours than he already was.</p>
+        <div class="tag-row"><span class="tag">Growth without burnout</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="chapters">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">THE SEQUENCE</span>
+      <h2>The nine moves, in the order they actually need to happen.</h2>
+      <p>Check items off as you complete them in your own business — your progress is saved automatically on this device.</p>
+    </div>
+
+    <!-- Chapter 1 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">01</span>
+            <div class="chapter-title">
+              <span class="subtitle">Fix capacity first</span>
+              <h3>Find your bottleneck and hand off everything else</h3>
+            </div>
+          </div>
+          <p>Before spending a dollar on marketing or touching your prices, map exactly how your product or service gets delivered, step by step. In almost every capped business, one person — usually the founder — is personally required for steps that don't actually need their specific skill.</p>
+          <p>The fix isn't working harder. It's separating the two or three steps that truly require expert judgment from everything else, and building a system so someone else can competently do the rest. In the practice used here, only 2 of 5 treatment visits genuinely required the founder — handing off the other 3 doubled capacity without hiring a second expert.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · POINT OF LEVERAGE</span>
+            <p>The one move that returns the most result for the effort it costs. Worth hunting for, instead of chasing a long list of minor tweaks.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch1">
+            <li><input type="checkbox" id="ch1-1"><span>List every step of delivery, in order, from first contact to finished job</span></li>
+            <li><input type="checkbox" id="ch1-2"><span>Mark which steps truly require your top expert's specific skill</span></li>
+            <li><input type="checkbox" id="ch1-3"><span>Everything else gets handed off — even if it feels uncomfortable at first</span></li>
+            <li><input type="checkbox" id="ch1-4"><span>Script a short "handoff" moment so customers trust the new person</span></li>
+            <li><input type="checkbox" id="ch1-5"><span>Reposition your expert as "the architect," not the only capable hands</span></li>
+          </ul>
+          <div class="result-callout">Result in the case study: capacity roughly doubled — from ~25–30 clients a month to ~50 — with no new experts hired.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">02</span>
+            <div class="chapter-title">
+              <span class="subtitle">Only after capacity is real</span>
+              <h3>Turn up spend on what's already working</h3>
+            </div>
+          </div>
+          <p>Adding marketing to a business that can't yet deliver more work doesn't create growth — it just creates a longer wait list. Once you've genuinely freed up capacity, though, the fastest and lowest-risk growth lever is usually more of what's already converting.</p>
+          <p>Check your local market's ceiling before assuming you're near it. Most businesses stop increasing ad spend far earlier than the market actually requires.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · SUPPLY CONSTRAINED</span>
+            <p>A state where demand already exceeds what you can deliver. Adding more marketing here doesn't create growth — it just lengthens the line.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch2">
+            <li><input type="checkbox" id="ch2-1"><span>Confirm the capacity fix from Move 1 is actually in place</span></li>
+            <li><input type="checkbox" id="ch2-2"><span>Identify the one channel that already converts reliably</span></li>
+            <li><input type="checkbox" id="ch2-3"><span>Research what your local market can realistically absorb</span></li>
+            <li><input type="checkbox" id="ch2-4"><span>Raise spend in stages, watching close rate as you go</span></li>
+          </ul>
+          <div class="result-callout">A business spending a modest amount a month in a major metro area is often nowhere near its local ceiling.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">03</span>
+            <div class="chapter-title">
+              <span class="subtitle">The most overlooked lever</span>
+              <h3>Raise your price — a high close rate is your permission slip</h3>
+            </div>
+          </div>
+          <p>A close rate north of 80% isn't proof your price is right — it's usually proof it's too low. If almost everyone says yes, the market is telling you it would still say yes at a higher number.</p>
+          <p>The rule of thumb: keep raising price until the combination of close rate and price actually starts to fall. Selling slightly fewer people at a meaningfully higher price is still a win — you're only in trouble once the total math goes down, not just the close rate.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · PRICE × CLOSE RATE</span>
+            <p>The number that actually matters. Selling 10% fewer people at 20% more revenue per sale is a net win, not a loss — track the product, not just the percentage.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch3">
+            <li><input type="checkbox" id="ch3-1"><span>Calculate your current close rate</span></li>
+            <li><input type="checkbox" id="ch3-2"><span>If it's 80%+, test a 15–20% price increase</span></li>
+            <li><input type="checkbox" id="ch3-3"><span>Track price × close rate together, not close rate alone</span></li>
+            <li><input type="checkbox" id="ch3-4"><span>Keep raising in stages until that combined number actually drops</span></li>
+          </ul>
+          <div class="result-callout">In the case study, a 20% price increase was followed by close rate going up, not down — average order value nearly doubled over 90 days.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">04</span>
+            <div class="chapter-title">
+              <span class="subtitle">Fund growth without new capital</span>
+              <h3>Collect payment upfront, not as-you-go</h3>
+            </div>
+          </div>
+          <p>If customers are going to pay for something eventually anyway, collecting that money sooner — in full or through financing — is one of the simplest cash-flow unlocks available. It shortens the gap between doing the work and having cash to reinvest.</p>
+          <p>Frame it as a normal choice, not a big ask: "credit card in full, or financing" as the two default options, with pay-as-you-go quietly becoming the fallback rather than the default.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · CASH CONVERSION CYCLE</span>
+            <p>The gap between making a sale and having that money actually sitting in your account. Getting paid upfront closes most of that gap immediately.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch4">
+            <li><input type="checkbox" id="ch4-1"><span>Offer two clear options: pay in full, or finance the full amount</span></li>
+            <li><input type="checkbox" id="ch4-2"><span>Make pay-as-you-go the fallback, not the headline option</span></li>
+            <li><input type="checkbox" id="ch4-3"><span>Collect a payment method at intake, framed as completing a profile</span></li>
+            <li><input type="checkbox" id="ch4-4"><span>Track how much faster cash lands in the bank each month</span></li>
+          </ul>
+          <div class="result-callout">This single change was reported as the biggest unlock of the entire 90 days — monthly revenue nearly tripled soon after.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 5 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">05</span>
+            <div class="chapter-title">
+              <span class="subtitle">Why this compounds</span>
+              <h3>Let the virtuous cycle of pricing do the rest</h3>
+            </div>
+          </div>
+          <p>Once price goes up and cash arrives sooner, something else opens up: room to reinvest in the actual experience. Better experience attracts a customer who cares less about price and more about outcome — which supports charging more, which funds even better delivery and talent.</p>
+          <p>This is the opposite of competing on price. For high-stakes purchases especially, people often read a higher price as lower risk, not higher cost — nobody wants the cheapest option for something irreversible.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · PRICE-QUALITY CORRELATION</span>
+            <p>For big, irreversible decisions, people often assume a higher price means lower risk. Being the cheapest option can actually make buyers more nervous, not less.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch5">
+            <li><input type="checkbox" id="ch5-1"><span>Reinvest new margin into the customer experience, not just profit</span></li>
+            <li><input type="checkbox" id="ch5-2"><span>Resist the urge to compete down on price when a competitor undercuts you</span></li>
+            <li><input type="checkbox" id="ch5-3"><span>Use the extra margin to bring on better talent</span></li>
+            <li><input type="checkbox" id="ch5-4"><span>Let the improved experience justify the next price increase</span></li>
+          </ul>
+          <div class="result-callout">Higher prices were followed by happier customers — because the extra revenue was visibly reinvested in their experience.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">06</span>
+            <div class="chapter-title">
+              <span class="subtitle">Reduce friction, not effort</span>
+              <h3>Tighten the sales process with education, not pressure</h3>
+            </div>
+          </div>
+          <p>Every sales process has two real levers: qualification (getting the right people to show up) and education (getting them into the right mindset before you ask them to buy). If your sales conversations run long or get stuck on the same objections, the fix is usually more education earlier — not a harder close.</p>
+          <p>A short pre-education video, watched while a customer is already waiting, can cover the pains they recognize, the proof that it works, and the objections they were already going to raise — before the actual conversation even starts.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · VIDEO SALES LETTER (VSL)</span>
+            <p>A short pre-recorded video that handles part of the sales conversation before it happens — surfacing the problem, showing evidence it can be solved, and getting ahead of objections.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch6">
+            <li><input type="checkbox" id="ch6-1"><span>Map every step from first contact to money collected</span></li>
+            <li><input type="checkbox" id="ch6-2"><span>Find the point where customers hesitate or ask the same questions</span></li>
+            <li><input type="checkbox" id="ch6-3"><span>Build a short video: pain, proof, common objections answered</span></li>
+            <li><input type="checkbox" id="ch6-4"><span>Play it during any natural waiting period before the sales conversation</span></li>
+          </ul>
+          <div class="result-callout">Adding a short video before the pricing conversation was described as pure upside — smoother process, fewer questions, no downside noticed.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 7 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">07</span>
+            <div class="chapter-title">
+              <span class="subtitle">The most common mistake in the room</span>
+              <h3>Nail it before you scale it</h3>
+            </div>
+          </div>
+          <p>The instinct, especially in brick-and-mortar businesses, is to open another location the moment growth stalls. Almost always, the better move is to make the location you already have significantly more profitable first — because a second unit just multiplies whatever problems the first one still has.</p>
+          <p>Only once a single location is running near its real ceiling does adding a second one start to make the math meaningfully better, rather than just meaningfully more complicated.</p>
+          <div class="term-box">
+            <span class="term-label">MYTH VS. REALITY</span>
+            <p>Myth: "we need more locations to make more money." Reality: fix and max out the one you have — that's usually what unlocks the money you were trying to get from a second location anyway.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch7">
+            <li><input type="checkbox" id="ch7-1"><span>Confirm the core bottleneck from Move 1 is genuinely solved</span></li>
+            <li><input type="checkbox" id="ch7-2"><span>Push your current location's profitability as high as it will go</span></li>
+            <li><input type="checkbox" id="ch7-3"><span>Only then model the real math on a second location</span></li>
+          </ul>
+          <div class="result-callout">The practice hit its growth goal without opening a single new location — by making the existing one significantly better instead.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 8 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">08</span>
+            <div class="chapter-title">
+              <span class="subtitle">The lever that touches everything else</span>
+              <h3>Win on speed to lead</h3>
+            </div>
+          </div>
+          <p>For anyone shopping around, the business that responds first usually wins the customer — often within about 60 seconds, not hours or days. Speed compounds across the entire business: it lowers cost per customer, raises close rates, raises show-up rates, and reduces how much competitors even factor into the decision.</p>
+          <p>If your process has customers waiting weeks to even be seen, that delay is quietly costing far more revenue than most owners realize — especially for anyone in genuine discomfort or urgency.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · SPEED TO LEAD</span>
+            <p>The gap between a lead arriving and your first response. People actively comparing options tend to go with whoever calls back first — which is why this is measured in seconds, not business days.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch8">
+            <li><input type="checkbox" id="ch8-1"><span>Measure your current average time-to-first-response</span></li>
+            <li><input type="checkbox" id="ch8-2"><span>Remove any queue between a lead arriving and first contact</span></li>
+            <li><input type="checkbox" id="ch8-3"><span>Shrink diagnostic or intake time so people are seen sooner</span></li>
+            <li><input type="checkbox" id="ch8-4"><span>Track speed as a KPI on the same dashboard as revenue</span></li>
+          </ul>
+          <div class="result-callout">Cutting the booking wait from 2–4 weeks to about 7 days lifted close rates and show-up rates at the same time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 9 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">09</span>
+            <div class="chapter-title">
+              <span class="subtitle">Free, and already happening</span>
+              <h3>Let your own results become your marketing</h3>
+            </div>
+          </div>
+          <p>Every business that produces a visible transformation is sitting on marketing it isn't using. The fix is mostly about capture, not creativity: document the before, capture the reveal moment, and post it in more than one format.</p>
+          <p>Note the sequencing here — organic content is worth doing, but only after the earlier moves. Posting more content into a business that's still capacity-constrained just adds to a backlog instead of adding revenue.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · ORGANIC CONTENT</span>
+            <p>Anything you publish without paying to promote it. Its reach comes from how much you post and how good it is — not from a media budget.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch9">
+            <li><input type="checkbox" id="ch9-1"><span>Capture a documented "before" for every customer, every time</span></li>
+            <li><input type="checkbox" id="ch9-2"><span>Capture the reveal or "after" moment on camera</span></li>
+            <li><input type="checkbox" id="ch9-3"><span>Post it three ways: short story, carousel, and a case-study breakdown</span></li>
+            <li><input type="checkbox" id="ch9-4"><span>End every post with one clear call to action</span></li>
+            <li><input type="checkbox" id="ch9-5"><span>Only prioritize this once Moves 1–8 are already in motion</span></li>
+          </ul>
+          <div class="result-callout">This lever was intentionally saved for last — it multiplies results once supply and price are already fixed, not before.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="pullquote">
+  <div class="wrap">
+    <p>Scaling isn't the thing that makes a business profitable. Getting one location, one offer, one process to work exceptionally well is what generates the cash — and the confidence — to expand at all.</p>
+    <div class="attribution">The core idea behind Move 07</div>
+  </div>
+</section>
+
+<section id="results" class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">90 DAYS LATER</span>
+      <h2>What the sequence actually produced</h2>
+      <p>No new location. No new marketing channel. No outside capital. Just removing what was capping a business that already existed.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <h4>Monthly revenue</h4>
+        <div class="before-after"><span class="from">$160K</span><span class="arrow">→</span><span class="to">~$500K</span></div>
+        <div class="cap">Average month, before vs. on-track figure by day 90</div>
+      </div>
+      <div class="result-card">
+        <h4>Annual run rate</h4>
+        <div class="before-after"><span class="from">$2.8M</span><span class="arrow">→</span><span class="to">$3.3M</span></div>
+        <div class="cap">In the final weeks alone, on top of the monthly jump above</div>
+      </div>
+      <div class="result-card">
+        <h4>Average treatment value</h4>
+        <div class="before-after"><span class="from">$28K</span><span class="arrow">→</span><span class="to">$44K</span></div>
+        <div class="cap">After a 20% price increase — close rate went up, not down</div>
+      </div>
+      <div class="result-card">
+        <h4>Time to first appointment</h4>
+        <div class="before-after"><span class="from">15–30 days</span><span class="arrow">→</span><span class="to">~7 days</span></div>
+        <div class="cap">Freed-up capacity meant new patients could be seen sooner</div>
+      </div>
+      <div class="result-card">
+        <h4>Practicing doctors</h4>
+        <div class="before-after"><span class="from">1</span><span class="arrow">→</span><span class="to">3</span></div>
+        <div class="cap">Two associates trained to take on the handed-off visits</div>
+      </div>
+      <div class="result-card">
+        <h4>New locations needed</h4>
+        <div class="before-after"><span class="from">Assumed: 3–4</span><span class="arrow">→</span><span class="to">Zero</span></div>
+        <div class="cap">The growth goal was reached without expanding real estate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">WHERE PEOPLE GET STUCK</span>
+      <h2>Common ways this sequence goes wrong</h2>
+      <p>Watching the moves is easy. Here's what tends to derail people when they actually try to apply them.</p>
+    </div>
+    <div class="pitfall-grid">
+      <div class="pitfall-card">
+        <h4>Scaling before fixing the bottleneck</h4>
+        <p>Adding a location, a channel, or headcount before Move 1 is solved just multiplies the same constraint — it rarely fixes it.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Mistaking a high close rate for the right price</h4>
+        <p>A close rate above 80% usually means there's pricing power sitting unused, not proof the price is already correct.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Treating the founder as irreplaceable</h4>
+        <p>The belief that "no one can do this like I can" is often just an untested assumption — one that quietly caps growth on its own.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Adding marketing to a capacity problem</h4>
+        <p>More leads into a business that can't deliver more work doesn't create growth. It just creates a longer, more frustrated waiting list.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>About this guide</h3>
+    <p>This hub is an independent, educational breakdown created to make a real scaling framework easier to actually apply, step by step. The underlying case study and teaching points are drawn from a coaching conversation between business educator Alex Hormozi and a dental-practice owner, published publicly on YouTube as part of "The Game w/ Alex Hormozi."</p>
+    <p>This guide is not affiliated with, endorsed by, or produced by Alex Hormozi or Acquisition.com. All figures are approximate and paraphrased from that publicly available conversation for teaching purposes. For the original conversation and additional resources, see the source video.</p>
+    <p class="disclaimer">Educational content only. Every business is different — treat these as a starting sequence to test in your own numbers, not a guarantee of results.</p>
+    <p style="margin-top:22px;"><a class="src-link" href="index.html">&larr; Back to the Compass hub</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Font size control ----------
+  var sizes = ['15px','17px','19.5px'];
+  var fsButtons = document.querySelectorAll('.fs-group button');
+  fsButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      fsButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var idx = parseInt(btn.getAttribute('data-size'), 10);
+      document.documentElement.style.setProperty('--fs-base', sizes[idx]);
+    });
+  });
+
+  // ---------- Theme toggle (defaults light) ----------
+  var toggle = document.getElementById('themeToggle');
+  var label = document.getElementById('themeLabel');
+  var icon = document.getElementById('themeIcon');
+  var sunPath = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+  var moonPath = '<path d="M21 12.4A9 9 0 1 1 11.6 3a7 7 0 0 0 9.4 9.4z"></path>';
+
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    if(mode === 'dark'){
+      label.textContent = 'Light';
+      icon.innerHTML = moonPath;
+    } else {
+      label.textContent = 'Dark';
+      icon.innerHTML = sunPath;
+    }
+  }
+  toggle.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  setTheme('light');
+
+  // ---------- Checklist persistence via window.storage ----------
+  var STORAGE_KEY = 'bottleneck-playbook-progress';
+  var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.checklist input[type="checkbox"]'));
+  var total = checkboxes.length;
+  var chip = document.getElementById('progressChip');
+
+  function updateChip(){
+    var done = checkboxes.filter(function(c){ return c.checked; }).length;
+    chip.textContent = done + ' / ' + total + ' steps done';
+  }
+
+  function applyState(state){
+    checkboxes.forEach(function(cb){
+      var checked = !!(state && state[cb.id]);
+      cb.checked = checked;
+      cb.closest('li').classList.toggle('done', checked);
+    });
+    updateChip();
+  }
+
+  async function loadState(){
+    try{
+      if(window.storage && window.storage.get){
+        var result = await window.storage.get(STORAGE_KEY, false);
+        if(result && result.value){
+          applyState(JSON.parse(result.value));
+          return;
+        }
+      }
+    }catch(e){ /* no saved state yet */ }
+    updateChip();
+  }
+
+  var saveTimer = null;
+  function saveState(){
+    var state = {};
+    checkboxes.forEach(function(cb){ state[cb.id] = cb.checked; });
+    if(window.storage && window.storage.set){
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function(){
+        window.storage.set(STORAGE_KEY, JSON.stringify(state), false).catch(function(){});
+      }, 250);
+    }
+  }
+
+  checkboxes.forEach(function(cb){
+    cb.addEventListener('change', function(){
+      cb.closest('li').classList.toggle('done', cb.checked);
+      updateChip();
+      saveState();
+    });
+  });
+
+  document.querySelectorAll('.checklist li').forEach(function(li){
+    li.addEventListener('click', function(e){
+      if(e.target.tagName.toLowerCase() !== 'input'){
+        var cb = li.querySelector('input');
+        cb.checked = !cb.checked;
+        cb.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+
+  loadState();
+})();
+</script>
+
+</body>
+</html>

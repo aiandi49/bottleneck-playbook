@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cash Flow Rescue Playbook — Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --font-display: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+    --font-body: 'Public Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    --ocean:      #073B4C;
+    --ocean-2:    #0B4F63;
+    --turquoise:  #0FA3B1;
+    --turquoise-2:#0C8A96;
+    --aqua:       #4FD1C5;
+    --seafoam:    #CFF3E7;
+    --seafoam-2:  #E8FAF3;
+    --coral:      #FF8F6B;
+    --ink:        #0B2530;
+    --ink-soft:   #3E5C64;
+    --white:      #FFFFFF;
+    --line:       rgba(7,59,76,0.12);
+
+    --bg:         var(--white);
+    --bg-alt:     var(--seafoam-2);
+    --text:       var(--ink);
+    --text-soft:  var(--ink-soft);
+    --card-bg:    var(--white);
+    --card-line:  var(--line);
+    --header-bg:  rgba(255,255,255,0.86);
+
+    --step: 1;
+    --fs-base: 17px;
+    --radius: 14px;
+    --shadow-soft: 0 20px 50px -25px rgba(7,59,76,0.35);
+    --shadow-card: 0 12px 30px -18px rgba(7,59,76,0.28);
+  }
+
+  html[data-theme="dark"]{
+    --bg:        #06222B;
+    --bg-alt:    #082B36;
+    --text:      #EAF6F5;
+    --text-soft: #A9C7C9;
+    --card-bg:   #0B3542;
+    --card-line: rgba(207,243,231,0.14);
+    --header-bg: rgba(6,34,43,0.86);
+    --line:      rgba(207,243,231,0.14);
+    --shadow-soft: 0 20px 50px -20px rgba(0,0,0,0.55);
+    --shadow-card: 0 12px 30px -18px rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .35s ease, color .35s ease;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  .wrap{
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  h1,h2,h3,h4{
+    font-family: var(--font-display);
+    color: var(--text);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  p{ margin: 0 0 1em; color: var(--text-soft); }
+  ul{ margin:0; padding:0; }
+  .eyebrow-num{
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position: sticky; top:0; z-index: 50;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 12px;
+    padding: 14px 24px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+  .brand-mark{
+    width: 30px; height:30px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    flex-shrink:0;
+    position: relative;
+  }
+  .brand-mark::after{
+    content:"";
+    position:absolute; inset: 8px;
+    border-radius: 4px;
+    background: var(--white);
+    opacity:.85;
+  }
+  .controls{
+    display:flex; align-items:center; gap: 10px;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+  }
+  .progress-chip{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    border-radius: 999px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+  html[data-theme="dark"] .progress-chip{
+    background: rgba(79,209,197,0.16);
+    color: var(--aqua);
+  }
+  .fs-group, .theme-group{
+    display:flex; align-items:center; gap:4px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .fs-group button, .theme-toggle{
+    border: none; background: transparent;
+    color: var(--text-soft);
+    font-family: var(--font-body);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 6px 10px;
+    line-height: 1;
+    font-size: 0.8rem;
+  }
+  .fs-group button.active{
+    background: var(--turquoise);
+    color: #fff;
+  }
+  .theme-toggle{
+    display:flex; align-items:center; gap:6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  .theme-toggle svg{ width:15px; height:15px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 64px 0 56px;
+    background:
+      radial-gradient(120% 100% at 15% 0%, rgba(79,209,197,0.28), transparent 55%),
+      radial-gradient(120% 100% at 85% 10%, rgba(15,163,177,0.20), transparent 60%),
+      var(--bg);
+    text-align: center;
+  }
+  .hero .wrap{ display:flex; flex-direction:column; align-items:center; }
+  .hero-kicker{
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  html[data-theme="dark"] .hero-kicker{ background: rgba(79,209,197,0.16); color: var(--aqua); }
+  .hero h1{
+    font-size: clamp(2.1rem, 7vw, 4rem);
+    line-height: 1.05;
+    max-width: 16ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--turquoise);
+    font-weight: 500;
+  }
+  .hero p.lede{
+    max-width: 56ch;
+    font-size: clamp(1.02rem, 2.2vw, 1.2rem);
+    margin-top: 20px;
+  }
+  .hero-actions{
+    display:flex; gap:14px; margin-top: 8px; flex-wrap: wrap; justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 24px;
+    border-radius: 999px;
+    text-decoration:none;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--turquoise), var(--ocean-2));
+    color: #fff;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-ghost{
+    background: var(--card-bg);
+    color: var(--text);
+    border-color: var(--card-line);
+  }
+
+  .stat-strip{
+    margin-top: 44px;
+    width: 100%;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    text-align: left;
+  }
+  .stat-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card .num{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--ocean);
+  }
+  html[data-theme="dark"] .stat-card .num{ color: var(--aqua); }
+  .stat-card .lbl{
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
+
+  /* ---------- Section shells ---------- */
+  section{ padding: 68px 0; }
+  .section-alt{ background: var(--bg-alt); }
+  .section-head{
+    text-align:center;
+    max-width: 640px;
+    margin: 0 auto 44px;
+  }
+  .section-head .kicker{
+    font-weight: 700; font-size: 0.85rem; color: var(--turquoise-2);
+    margin-bottom: 10px; display:block;
+  }
+  html[data-theme="dark"] .section-head .kicker{ color: var(--aqua); }
+  .section-head h2{ font-size: clamp(1.6rem, 4.5vw, 2.4rem); }
+  .section-head p{ margin-top: 12px; }
+
+  /* ---------- Setup / context cards ---------- */
+  .context-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .context-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .context-card h3{ font-size: 1.25rem; margin-bottom: 10px;}
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .tag{
+    font-size: 0.78rem; font-weight: 700;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+  }
+  html[data-theme="dark"] .tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .tag.coral{ background: rgba(255,143,107,0.16); color: #C75A36; }
+  html[data-theme="dark"] .tag.coral{ color: var(--coral); }
+
+  /* ---------- Chapters (the 9 moves) ---------- */
+  .chapter{
+    border-top: 1px solid var(--card-line);
+    padding: 46px 0;
+  }
+  .chapter:first-of-type{ border-top: none; }
+  .chapter-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    align-items: start;
+  }
+  .chapter-head{
+    display:flex; align-items:flex-start; gap:16px;
+    margin-bottom: 14px;
+  }
+  .chapter-num{
+    font-size: 2.6rem;
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+    flex-shrink:0;
+  }
+  .chapter-title h3{ font-size: clamp(1.35rem, 3.4vw, 1.75rem); }
+  .chapter-title .subtitle{
+    color: var(--turquoise-2); font-weight: 700; font-size: 0.85rem;
+    margin-top: 4px; display:block;
+  }
+  html[data-theme="dark"] .chapter-title .subtitle{ color: var(--aqua); }
+
+  .term-box{
+    border-left: 4px solid var(--turquoise);
+    background: var(--bg-alt);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .term-box .term-label{
+    font-size: 0.72rem; font-weight: 800; letter-spacing: .04em;
+    color: var(--turquoise-2); margin-bottom: 4px; display:block;
+  }
+  html[data-theme="dark"] .term-box .term-label{ color: var(--aqua); }
+  .term-box p{ margin:0; color: var(--text); font-size: 0.94rem; }
+
+  .checklist-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .checklist-card h4{
+    font-size: 0.95rem; font-family: var(--font-body); font-weight: 800;
+    color: var(--text); margin-bottom: 14px;
+    text-align:left;
+  }
+  .checklist{ list-style:none; text-align:left; }
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--card-line);
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    cursor:pointer;
+  }
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist li input{
+    appearance: none;
+    width: 19px; height:19px; flex-shrink:0;
+    border-radius: 6px;
+    border: 2px solid var(--turquoise);
+    margin-top: 1px;
+    cursor:pointer;
+    position: relative;
+    transition: background .15s ease;
+  }
+  .checklist li input:checked{ background: var(--turquoise); }
+  .checklist li input:checked::after{
+    content:"";
+    position:absolute; left:5px; top:1px;
+    width:5px; height:10px;
+    border: solid white; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .checklist li.done span{
+    text-decoration: line-through;
+    color: var(--text-soft);
+    opacity: .6;
+  }
+  .result-callout{
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(15,163,177,0.10), rgba(79,209,197,0.14));
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--ocean);
+    font-weight: 600;
+  }
+  html[data-theme="dark"] .result-callout{ color: var(--seafoam); background: linear-gradient(135deg, rgba(15,163,177,0.14), rgba(79,209,197,0.10)); }
+
+  /* ---------- Pull quote ---------- */
+  .pullquote{
+    padding: 84px 0;
+    text-align:center;
+    background: linear-gradient(160deg, var(--ocean), var(--ocean-2));
+    color: #fff;
+  }
+  .pullquote .wrap{ max-width: 900px; }
+  .pullquote p{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: #fff;
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    line-height: 1.28;
+    margin-bottom: 18px;
+  }
+  .pullquote .attribution{
+    color: var(--seafoam);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-style: normal;
+  }
+
+  /* ---------- Results ---------- */
+  .results-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .result-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    text-align:center;
+  }
+  .result-card .before-after{
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    margin-top: 10px; flex-wrap: wrap;
+  }
+  .result-card .before-after .from{
+    color: var(--text-soft);
+    text-decoration: line-through;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+  .result-card .before-after .arrow{ color: var(--turquoise); }
+  .result-card .before-after .to{
+    color: var(--ocean);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.55rem;
+  }
+  html[data-theme="dark"] .result-card .before-after .to{ color: var(--aqua); }
+  .result-card .cap{ margin-top: 10px; font-size: 0.85rem; color: var(--text-soft); }
+
+  /* ---------- Pitfalls ---------- */
+  .pitfall-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .pitfall-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--coral);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .pitfall-card h4{ font-size: 1.02rem; margin-bottom: 6px; font-family: var(--font-display); font-weight: 600;}
+  .pitfall-card p{ margin:0; font-size: 0.9rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 50px 0 60px;
+    text-align: center;
+    background: var(--ocean);
+    color: var(--seafoam);
+  }
+  footer .wrap{ max-width: 720px; }
+  footer h3{ color: #fff; font-size: 1.4rem; margin-bottom: 12px; }
+  footer p{ color: rgba(207,243,231,0.85); font-size: 0.92rem; }
+  footer a.src-link{
+    color: #fff; font-weight: 700; text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  footer .disclaimer{
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid rgba(207,243,231,0.2);
+    font-size: 0.78rem; color: rgba(207,243,231,0.6);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (min-width: 640px){
+    .stat-strip{ grid-template-columns: repeat(4, 1fr); }
+    .context-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 900px){
+    .hero{ text-align:left; padding: 90px 0 80px; }
+    .hero .wrap{ align-items:flex-start; }
+    .hero-actions{ justify-content:flex-start; }
+    .hero-top{
+      display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center; width:100%;
+    }
+    .hero-copy{ text-align:left; }
+    .stat-strip{ margin-top:0; }
+
+    .section-head{ text-align:left; margin-left:0; }
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+
+    .chapter-grid{ grid-template-columns: 1.3fr 0.95fr; gap: 44px; }
+    .pitfall-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 1200px){
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+  }
+
+  :focus-visible{
+    outline: 3px solid var(--turquoise);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Hub-wide additions: crumb bar ---------- */
+  .crumb-bar{
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .crumb-inner{
+    max-width: 1320px; margin: 0 auto;
+    padding: 9px 24px;
+    display:flex; align-items:center; gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .crumb-inner a{
+    color: var(--turquoise-2);
+    text-decoration: none;
+    display:flex; align-items:center; gap: 5px;
+  }
+  html[data-theme="dark"] .crumb-inner a{ color: var(--aqua); }
+  .crumb-inner a:hover{ text-decoration: underline; }
+  .crumb-sep{ color: var(--text-soft); opacity:.5; }
+  .crumb-current{ color: var(--text-soft); font-weight: 600; }
+
+  /* ---------- Diagnostic / path cards (hub home) ---------- */
+  .path-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .path-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+    text-decoration:none;
+    display:block;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .path-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+  .path-card .path-icon{
+    width: 44px; height:44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 16px;
+    color:#fff;
+  }
+  .path-card .path-icon svg{ width:22px; height:22px; }
+  .path-card h3{ font-size: 1.15rem; margin-bottom: 8px; }
+  .path-card p{ font-size: 0.9rem; margin-bottom: 0; }
+  .path-card .path-cta{
+    margin-top: 14px; font-size: 0.83rem; font-weight: 800;
+    color: var(--turquoise-2); display:flex; align-items:center; gap:5px;
+  }
+  html[data-theme="dark"] .path-card .path-cta{ color: var(--aqua); }
+
+  /* ---------- Foundations grid (hub home) ---------- */
+  .foundation-grid{
+    display:grid; grid-template-columns: 1fr; gap: 18px;
+  }
+  .foundation-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .foundation-card .f-kicker{
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--turquoise);
+    display:block;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .foundation-card h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .foundation-card p{ font-size: 0.92rem; }
+  .dodont{
+    margin-top: 14px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .dodont div{
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    display:flex; gap:8px;
+    color: var(--text);
+  }
+  .dodont .do{ background: rgba(15,163,177,0.10); }
+  .dodont .dont{ background: rgba(255,143,107,0.12); }
+  html[data-theme="dark"] .dodont .do{ background: rgba(79,209,197,0.10); }
+  html[data-theme="dark"] .dodont .dont{ background: rgba(255,143,107,0.10); }
+  .dodont b{ flex-shrink:0; }
+
+  /* ---------- Playbook library cards (hub home) ---------- */
+  .lib-grid{
+    display:grid; grid-template-columns: 1fr; gap: 20px;
+  }
+  .lib-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display:flex; flex-direction:column;
+    text-decoration:none;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+    overflow:hidden;
+  }
+  .lib-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+  .lib-card .lib-tag{
+    align-self:flex-start;
+    font-size: 0.72rem; font-weight: 800; letter-spacing:.03em;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  html[data-theme="dark"] .lib-card .lib-tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .lib-card h3{ font-size: 1.4rem; margin-bottom: 10px; }
+  .lib-card p.hook{ font-size: 0.95rem; margin-bottom: 18px; }
+  .lib-stat-row{
+    display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 20px;
+  }
+  .lib-stat{
+    background: var(--bg-alt);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .lib-cta{
+    margin-top:auto;
+    font-weight: 800; font-size: 0.9rem;
+    color: var(--turquoise-2);
+    display:flex; align-items:center; gap:6px;
+  }
+  html[data-theme="dark"] .lib-cta{ color: var(--aqua); }
+  .lib-card.soon{
+    opacity: 0.6;
+    cursor: default;
+  }
+  .lib-card.soon:hover{ transform:none; box-shadow: var(--shadow-card); }
+  .lib-card.soon .lib-cta{ color: var(--text-soft); }
+
+  @media (min-width: 640px){
+    .path-grid{ grid-template-columns: repeat(3,1fr); }
+    .foundation-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 900px){
+    .lib-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 1100px){
+    .foundation-grid{ grid-template-columns: repeat(4,1fr); }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Compass
+    </div>
+    <div class="controls">
+      <span class="progress-chip" id="progressChip">0 steps done</span>
+      <div class="fs-group" role="group" aria-label="Text size">
+        <button type="button" data-size="0" aria-label="Small text">A-</button>
+        <button type="button" data-size="1" class="active" aria-label="Medium text">A</button>
+        <button type="button" data-size="2" aria-label="Large text">A+</button>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+  <div class="crumb-bar">
+    <div class="crumb-inner">
+      <a href="index.html">&larr; Compass Hub</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">Cash Flow Rescue Playbook</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="hero-copy">
+        <span class="hero-kicker">When the real emergency is the bank balance</span>
+        <h1>Eight moves that turn a <em>cash crisis</em> into a <em>comeback</em>.</h1>
+        <p class="lede">When a business is close to running out of money, strategy takes a back seat to survival. This playbook breaks down a real rescue: a $22M indoor adventure park, weeks from empty, that needed cash fast — not someday.</p>
+        <div class="hero-actions">
+          <a href="#chapters" class="btn btn-primary">Start with Move 01</a>
+          <a href="#results" class="btn btn-ghost">Jump to the results</a>
+        </div>
+      </div>
+      <div class="stat-strip" aria-label="Snapshot of the park used as the working example">
+        <div class="stat-card"><div class="num">$22M</div><div class="lbl">already invested in the park</div></div>
+        <div class="stat-card"><div class="num">~2 weeks</div><div class="lbl">of cash left at the start</div></div>
+        <div class="stat-card"><div class="num">50%</div><div class="lbl">empty on peak-demand days</div></div>
+        <div class="stat-card"><div class="num">$150K/mo</div><div class="lbl">gap to break even</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">THE STARTING POINT</span>
+      <h2>Two problems at once, pulling in different directions.</h2>
+      <p>The example running through this guide is a real indoor family entertainment park. It's an unusually clear case because the founder was tracking the wrong numbers — watching results instead of the handful of inputs that actually drive them.</p>
+    </div>
+    <div class="context-grid">
+      <div class="context-card">
+        <h3>The trap</h3>
+        <p>The park had plenty of unused capacity on its busiest days, yet was also weeks away from running out of cash. Two different problems, easy to mistake for one.</p>
+        <div class="tag-row"><span class="tag coral">Demand + cash, both constrained</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The blind spot</h3>
+        <p>Years of tracking revenue and visits — the outputs — without a clear read on the handful of inputs that actually move those numbers.</p>
+        <div class="tag-row"><span class="tag">Outputs, not inputs</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The deadline</h3>
+        <p>Not a slow decline to manage over quarters. A hard, weeks-away date where the money would simply run out.</p>
+        <div class="tag-row"><span class="tag coral">Weeks, not months</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The goal</h3>
+        <p>Generate enough real cash, fast enough, to fund the slow season ahead — without waiting for a perfect long-term fix.</p>
+        <div class="tag-row"><span class="tag">Survive to profitable</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="chapters">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">THE SEQUENCE</span>
+      <h2>Eight moves, in the order a real cash crisis actually forces them.</h2>
+      <p>Check items off as you complete them in your own business — your progress is saved automatically on this device.</p>
+    </div>
+
+    <!-- Chapter 1 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">01</span>
+            <div class="chapter-title">
+              <span class="subtitle">Diagnose before you react</span>
+              <h3>Find out which constraint is actually squeezing you</h3>
+            </div>
+          </div>
+          <p>Revenue and visits are outputs — the result of decisions already made. The numbers that actually explain why a business is stuck are the inputs behind them: how many people are being reached, at what cost, and what each one is worth over time.</p>
+          <p>It's entirely possible to be short on customers and short on cash at the same time, and each needs a different fix. Confusing the two — throwing marketing at a cash problem, or trying to save your way out of a demand problem — wastes the little time a crisis leaves you.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · LTV : CAC</span>
+            <p>The relationship between what a customer is worth over time and what it costs to win them. It's the single ratio that shows whether more marketing spend is actually a good idea.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch1">
+            <li><input type="checkbox" id="ch1-1"><span>List your inputs: cost per lead, close rate, average order, and repeat rate</span></li>
+            <li><input type="checkbox" id="ch1-2"><span>Check your capacity utilization on your best and worst days</span></li>
+            <li><input type="checkbox" id="ch1-3"><span>Separate "not enough customers" from "not enough cash" as distinct problems</span></li>
+            <li><input type="checkbox" id="ch1-4"><span>Calculate your true monthly break-even number, including debt service</span></li>
+          </ul>
+          <div class="result-callout">In the case study, peak days were running at only half of capacity — proof the real emergency was cash, not demand.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">02</span>
+            <div class="chapter-title">
+              <span class="subtitle">One bet, made deliberately</span>
+              <h3>Build one offer stacked heavily in the customer's favor</h3>
+            </div>
+          </div>
+          <p>When cash is the emergency, this isn't the moment for a dozen small experiments — it's the moment for one offer so compelling that saying no feels like the harder choice. That usually means bundling more value than feels comfortable, in exchange for payment upfront.</p>
+          <p>In the case study, the fix was a single, all-summer access pass sold well below the sum of its parts, pushed hard to an existing list at exactly the moment families were already deciding how to spend their summer.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · A STACKED OFFER</span>
+            <p>A deal weighted so heavily toward the customer that turning it down feels like the harder choice. Used deliberately, and sparingly, when a business needs cash fast.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch2">
+            <li><input type="checkbox" id="ch2-1"><span>Identify the single highest-leverage offer you can make right now</span></li>
+            <li><input type="checkbox" id="ch2-2"><span>Bundle more value in than feels comfortable — this isn't the moment to hold back</span></li>
+            <li><input type="checkbox" id="ch2-3"><span>Price it to be paid in full, upfront</span></li>
+            <li><input type="checkbox" id="ch2-4"><span>Pick one single offer to run — not three competing ones</span></li>
+          </ul>
+          <div class="result-callout">The all-summer pass became the one bet the whole rescue was built around, rather than one of several half-hearted campaigns.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">03</span>
+            <div class="chapter-title">
+              <span class="subtitle">Make the page do one job</span>
+              <h3>Strip the landing page down to a single decision</h3>
+            </div>
+          </div>
+          <p>A landing page under pressure doesn't need to explain everything about the business — it needs to move one visitor toward one action. Competing banners, repeated messages, and headers that don't build trust all quietly tax your conversion rate.</p>
+          <p>The fix is often subtraction: cut anything that doesn't build trust or drive the one action you want, and put whatever builds the most trust — reviews, guarantees, a face on camera — right next to the button.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · TRAFFIC</span>
+            <p>The flow of people actually landing on a page or offer. "Driving traffic" simply means pushing more of them there on purpose.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch3">
+            <li><input type="checkbox" id="ch3-1"><span>Cut every banner or message that competes with your one main action</span></li>
+            <li><input type="checkbox" id="ch3-2"><span>Put your strongest trust signal directly beside the button</span></li>
+            <li><input type="checkbox" id="ch3-3"><span>Add a short video near the top explaining the offer directly</span></li>
+            <li><input type="checkbox" id="ch3-4"><span>Remove any header or section that doesn't build trust or drive action</span></li>
+          </ul>
+          <div class="result-callout">The short video added to the page became its single best-converting element — strong enough to be reused directly in ads.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">04</span>
+            <div class="chapter-title">
+              <span class="subtitle">Answer the fear before it's asked</span>
+              <h3>Put your proof next to the worry it answers</h3>
+            </div>
+          </div>
+          <p>Every buyer has a specific, unspoken worry that's actually stopping them — not a generic one. For a family entertainment business, that worry is safety, not price. Naming the exact concern and answering it with a real number does more than generic testimonials ever will.</p>
+          <p>The same logic applies everywhere: figure out the one thing your specific customer is quietly afraid of, and put a concrete answer to it right where they're deciding.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · A SPECIFIC PROOF POINT</span>
+            <p>A concrete number or fact that answers the exact worry a buyer has — not a general trust badge, but the one detail that actually matters to this customer.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch4">
+            <li><input type="checkbox" id="ch4-1"><span>Name the one specific fear your customer has about buying</span></li>
+            <li><input type="checkbox" id="ch4-2"><span>Answer it with a real, specific number — not a vague claim</span></li>
+            <li><input type="checkbox" id="ch4-3"><span>Add a simple guarantee that removes the risk of trying</span></li>
+            <li><input type="checkbox" id="ch4-4"><span>Place the proof physically next to the button, not buried below</span></li>
+          </ul>
+          <div class="result-callout">A single, specific safety statistic did more for trust on the page than a wall of general reviews.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 5 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">05</span>
+            <div class="chapter-title">
+              <span class="subtitle">Flood the list fast</span>
+              <h3>Run a giveaway to generate leads in days, not months</h3>
+            </div>
+          </div>
+          <p>A giveaway trades a big, visible prize for a large number of contact details in a short window. The people who don't win aren't a loss — they've just told you, by entering, that they want what you're selling, which makes them easy to follow up with at a steep, time-limited discount.</p>
+          <p>A short entry window, a visible countdown, and a referral bonus for sharing the giveaway all compound the same effect: more people, in less time, self-selecting as interested.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · A GIVEAWAY FUNNEL</span>
+            <p>People trade their contact details for a chance at a prize. Afterward, everyone who didn't win gets offered the same thing at a steep discount — since entering already proved they wanted it.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch5">
+            <li><input type="checkbox" id="ch5-1"><span>Offer one large, genuinely valuable grand prize</span></li>
+            <li><input type="checkbox" id="ch5-2"><span>Add a real second-place prize so more people feel like winners</span></li>
+            <li><input type="checkbox" id="ch5-3"><span>Run it on a short, visible countdown — about a week</span></li>
+            <li><input type="checkbox" id="ch5-4"><span>Add a referral bonus: sharing the giveaway earns extra entries</span></li>
+            <li><input type="checkbox" id="ch5-5"><span>Check your local rules on giveaways and prize drawings before launching</span></li>
+          </ul>
+          <div class="result-callout">One giveaway campaign generated 3,700 leads in a single local market inside about a week.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">06</span>
+            <div class="chapter-title">
+              <span class="subtitle">Plan for the shape of the curve</span>
+              <h3>Expect most of your leads in the final 48 hours</h3>
+            </div>
+          </div>
+          <p>Time-limited campaigns follow a predictable shape: a rush at launch, a discouraging flat stretch in the middle where it feels like nothing is working, and then a third to half of all leads arriving in the last 48 hours as urgency peaks.</p>
+          <p>Knowing this in advance changes how you react to the quiet middle. It's not a sign the campaign is failing — it's the normal shape of the curve, and the fix is to keep going, not to panic or pull back early.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · THE BACK-LOADED SURGE</span>
+            <p>The pattern where a large share of a campaign's results — often a third to half — arrive in its final 48 hours, driven by urgency rather than early interest.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch6">
+            <li><input type="checkbox" id="ch6-1"><span>Set expectations in advance for a slow, uncertain-feeling middle stretch</span></li>
+            <li><input type="checkbox" id="ch6-2"><span>Keep spend and effort steady through that middle instead of pulling back</span></li>
+            <li><input type="checkbox" id="ch6-3"><span>Staff up specifically for the final 48 hours of any campaign</span></li>
+            <li><input type="checkbox" id="ch6-4"><span>Track results against the expected curve, not just the daily total</span></li>
+          </ul>
+          <div class="result-callout">Leads accelerated sharply in the campaign's final two days, exactly as the pattern predicts.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 7 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">07</span>
+            <div class="chapter-title">
+              <span class="subtitle">The constraint moves — follow it</span>
+              <h3>Fix the next bottleneck, not the one you just solved</h3>
+            </div>
+          </div>
+          <p>Solving one constraint doesn't end the work — it reveals the next one. A flood of new leads is a good problem, but it's still a problem if the team answering the phones was sized for the old, quieter version of the business.</p>
+          <p>The instinct might be to celebrate the lead volume and move on. The better move is to immediately ask what's now the tightest limit on turning that success into actual revenue — and fix that next.</p>
+          <div class="term-box">
+            <span class="term-label">MYTH VS. REALITY</span>
+            <p>Myth: generating a flood of leads is the hard part, and the rest takes care of itself. Reality: leads you can't call back in time are simply leads you paid to lose.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch7">
+            <li><input type="checkbox" id="ch7-1"><span>Compare lead volume against your team's actual calling capacity</span></li>
+            <li><input type="checkbox" id="ch7-2"><span>Add sales staff ahead of a launch you expect to work</span></li>
+            <li><input type="checkbox" id="ch7-3"><span>Remember that sales hires funded by real lead flow are low-risk, not overhead</span></li>
+            <li><input type="checkbox" id="ch7-4"><span>Re-check what your tightest constraint is after every major win</span></li>
+          </ul>
+          <div class="result-callout">The 3,700 leads outpaced a three-person sales team's ability to call them — turning a win into the next clear priority: staffing up.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 8 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">08</span>
+            <div class="chapter-title">
+              <span class="subtitle">From rescue to routine</span>
+              <h3>Turn the one-time launch into a repeatable model</h3>
+            </div>
+          </div>
+          <p>A launch built to save a business shouldn't stay a one-time event. Once the structure works — the offer, the page, the giveaway — the same mechanics can be pointed at other natural moments in the business, run at a smaller, steadier scale year-round.</p>
+          <p>What started as an emergency summer push became a template for other occasions, run continuously instead of in a single high-stakes burst.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · CASH-FORWARD OFFERS</span>
+            <p>Structuring a deal so payment lands before delivery costs do. Early-bird pricing and bundled, prepaid packages all serve the same purpose: today's sales fund tomorrow's growth.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch8">
+            <li><input type="checkbox" id="ch8-1"><span>Identify other natural occasions your business already serves</span></li>
+            <li><input type="checkbox" id="ch8-2"><span>Rebuild the same offer-and-giveaway structure at a smaller, steady scale</span></li>
+            <li><input type="checkbox" id="ch8-3"><span>Run it continuously instead of as a single one-time event</span></li>
+            <li><input type="checkbox" id="ch8-4"><span>Reinvest a portion of new cash directly back into the channels that produced it</span></li>
+          </ul>
+          <div class="result-callout">The same structure, rebuilt around birthday parties, performed just as strongly as the original summer launch.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="pullquote">
+  <div class="wrap">
+    <p>A business can be losing money and still be sitting on more than enough demand to fix it. The fastest way through a cash crisis is rarely a new idea — it's making one existing offer impossible to ignore.</p>
+    <div class="attribution">The core idea behind Move 02</div>
+  </div>
+</section>
+
+<section id="results" class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">90 DAYS LATER</span>
+      <h2>What the sequence actually produced</h2>
+      <p>No new investors. No new location. Just one offer, one page, and one giveaway, run in the right order.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <h4>Leads generated</h4>
+        <div class="before-after"><span class="from">0</span><span class="arrow">→</span><span class="to">3,700</span></div>
+        <div class="cap">From a single giveaway campaign, in about a week, in one local market</div>
+      </div>
+      <div class="result-card">
+        <h4>Summer camp revenue</h4>
+        <div class="before-after"><span class="from">Prior year</span><span class="arrow">→</span><span class="to">+325%</span></div>
+        <div class="cap">Compared to the same season one year earlier</div>
+      </div>
+      <div class="result-card">
+        <h4>Park visitation</h4>
+        <div class="before-after"><span class="from">Baseline</span><span class="arrow">→</span><span class="to">~2x</span></div>
+        <div class="cap">Admissions roughly doubled over four to six weeks</div>
+      </div>
+      <div class="result-card">
+        <h4>Cost per lead</h4>
+        <div class="before-after"><span class="from">Prior campaigns</span><span class="arrow">→</span><span class="to">Lowest yet</span></div>
+        <div class="cap">Better than any previous marketing effort the park had run</div>
+      </div>
+      <div class="result-card">
+        <h4>New constraint found</h4>
+        <div class="before-after"><span class="from">Demand</span><span class="arrow">→</span><span class="to">Sales capacity</span></div>
+        <div class="cap">A three-person team couldn't call all 3,700 leads in time</div>
+      </div>
+      <div class="result-card">
+        <h4>Repeatable model</h4>
+        <div class="before-after"><span class="from">One launch</span><span class="arrow">→</span><span class="to">Year-round</span></div>
+        <div class="cap">The same structure was rebuilt around birthday parties next</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">WHERE PEOPLE GET STUCK</span>
+      <h2>Common ways this sequence goes wrong</h2>
+      <p>Watching a comeback story is easy. Here's what tends to derail people when they try to apply the same rescue themselves.</p>
+    </div>
+    <div class="pitfall-grid">
+      <div class="pitfall-card">
+        <h4>Treating a demand problem like a cash problem</h4>
+        <p>Being short on money and short on customers call for different fixes. Solve the wrong one first and the clock keeps running.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Launching big without staffing for the response</h4>
+        <p>A campaign that works is only useful if there's someone to answer the leads it creates. Plan capacity before you plan the promotion.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Quitting during the flat middle</h4>
+        <p>Every time-limited campaign has a discouraging stretch before the late surge. Pulling back here is the single most common way to waste one.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Skipping the legal basics on a giveaway</h4>
+        <p>Prize drawings have real rules that vary by location. Check them before launch, not after someone asks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>About this guide</h3>
+    <p>This guide is an independent, educational breakdown created to make a real cash-flow rescue easier to actually apply, step by step. The underlying case study and teaching points are drawn from a coaching conversation between business educator Alex Hormozi and the founder of an indoor family entertainment park, published publicly on YouTube as part of "The Game w/ Alex Hormozi."</p>
+    <p>This guide is not affiliated with, endorsed by, or produced by Alex Hormozi or Acquisition.com. All figures are approximate and paraphrased from that publicly available conversation for teaching purposes. For the original conversation and additional resources, see the source video.</p>
+    <p class="disclaimer">Educational content only. Every business is different — treat these as a starting sequence to test in your own numbers, not a guarantee of results. Nothing here is legal advice; check local rules before running any prize giveaway.</p>
+    <p style="margin-top:22px;"><a class="src-link" href="index.html">&larr; Back to the Compass hub</a></p>
+  </div>
+</footer>
+
+<script>
+
+(function(){
+  // ---------- Font size control ----------
+  var sizes = ['15px','17px','19.5px'];
+  var fsButtons = document.querySelectorAll('.fs-group button');
+  fsButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      fsButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var idx = parseInt(btn.getAttribute('data-size'), 10);
+      document.documentElement.style.setProperty('--fs-base', sizes[idx]);
+    });
+  });
+
+  // ---------- Theme toggle (defaults light) ----------
+  var toggle = document.getElementById('themeToggle');
+  var label = document.getElementById('themeLabel');
+  var icon = document.getElementById('themeIcon');
+  var sunPath = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+  var moonPath = '<path d="M21 12.4A9 9 0 1 1 11.6 3a7 7 0 0 0 9.4 9.4z"></path>';
+
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    if(mode === 'dark'){
+      label.textContent = 'Light';
+      icon.innerHTML = moonPath;
+    } else {
+      label.textContent = 'Dark';
+      icon.innerHTML = sunPath;
+    }
+  }
+  toggle.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  setTheme('light');
+
+  // ---------- Checklist persistence via window.storage ----------
+  var STORAGE_KEY = 'cash-flow-rescue-progress';
+  var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.checklist input[type="checkbox"]'));
+  var total = checkboxes.length;
+  var chip = document.getElementById('progressChip');
+
+  function updateChip(){
+    var done = checkboxes.filter(function(c){ return c.checked; }).length;
+    chip.textContent = done + ' / ' + total + ' steps done';
+  }
+
+  function applyState(state){
+    checkboxes.forEach(function(cb){
+      var checked = !!(state && state[cb.id]);
+      cb.checked = checked;
+      cb.closest('li').classList.toggle('done', checked);
+    });
+    updateChip();
+  }
+
+  async function loadState(){
+    try{
+      if(window.storage && window.storage.get){
+        var result = await window.storage.get(STORAGE_KEY, false);
+        if(result && result.value){
+          applyState(JSON.parse(result.value));
+          return;
+        }
+      }
+    }catch(e){ /* no saved state yet */ }
+    updateChip();
+  }
+
+  var saveTimer = null;
+  function saveState(){
+    var state = {};
+    checkboxes.forEach(function(cb){ state[cb.id] = cb.checked; });
+    if(window.storage && window.storage.set){
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function(){
+        window.storage.set(STORAGE_KEY, JSON.stringify(state), false).catch(function(){});
+      }, 250);
+    }
+  }
+
+  checkboxes.forEach(function(cb){
+    cb.addEventListener('change', function(){
+      cb.closest('li').classList.toggle('done', cb.checked);
+      updateChip();
+      saveState();
+    });
+  });
+
+  document.querySelectorAll('.checklist li').forEach(function(li){
+    li.addEventListener('click', function(e){
+      if(e.target.tagName.toLowerCase() !== 'input'){
+        var cb = li.querySelector('input');
+        cb.checked = !cb.checked;
+        cb.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+
+  loadState();
+})();
+
+</script>
+
+</body>
+</html>
