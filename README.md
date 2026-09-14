@@ -13,6 +13,7 @@ This repo is a static site — no build step, no dependencies. Open any `.html` 
 | `index.html` | The Compass hub home — a "start here" triage, foundational start-a-business guidance, and the playbook library |
 | `bottleneck-playbook.html` | Playbook 1: scaling a business that's capped by a single bottleneck |
 | `cash-flow-rescue.html` | Playbook 2: rescuing a business that's close to running out of cash |
+| `field-notes.html` | Founder Field Notes — a non-sequential reference of standalone ideas on starting, pricing, hiring, growth, and mindset |
 
 `index.html` is the entry point (this is what GitHub Pages will serve at the repo's root URL). Each playbook links back to it via the breadcrumb bar in its header.
 
@@ -22,6 +23,10 @@ This repo is a static site — no build step, no dependencies. Open any `.html` 
 2. Swap in the new case study's content — hero, context cards, numbered chapters, results, pitfalls.
 3. Give its checklist a unique storage key (search for `-progress` in the `<script>` block) so its saved checkboxes don't collide with other playbooks.
 4. Add a card for it in the `#library` section of `index.html`, and point its breadcrumb bar back to `index.html`.
+
+## Adding to Founder Field Notes
+
+`field-notes.html` is reference material, not a sequence — no checklist, no progress tracking. To add a new note, drop a `.note-card` into the relevant `.note-grid` (or add a new `.note-section` for a new topic and link it from the quick-nav at the top). Cross-link from a playbook from a specific move using an anchor, e.g. `field-notes.html#pricing`.
 
 ## Notes
 
