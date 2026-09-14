@@ -13,6 +13,7 @@ This repo is a static site — no build step, no dependencies. Open any `.html` 
 | `index.html` | The Compass hub home — a "start here" triage, foundational start-a-business guidance, and the playbook library |
 | `bottleneck-playbook.html` | Playbook 1: scaling a business that's capped by a single bottleneck |
 | `cash-flow-rescue.html` | Playbook 2: rescuing a business that's close to running out of cash |
+| `menu-close-playbook.html` | Playbook 3: raising revenue per job in a service business through offer, close, and channel focus |
 | `field-notes.html` | Founder Field Notes — a non-sequential reference of standalone ideas on starting, pricing, hiring, growth, and mindset |
 
 `index.html` is the entry point (this is what GitHub Pages will serve at the repo's root URL). Each playbook links back to it via the breadcrumb bar in its header.
