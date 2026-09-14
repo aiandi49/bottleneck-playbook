@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founder Field Notes — Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --font-display: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+    --font-body: 'Public Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    --ocean:      #073B4C;
+    --ocean-2:    #0B4F63;
+    --turquoise:  #0FA3B1;
+    --turquoise-2:#0C8A96;
+    --aqua:       #4FD1C5;
+    --seafoam:    #CFF3E7;
+    --seafoam-2:  #E8FAF3;
+    --coral:      #FF8F6B;
+    --ink:        #0B2530;
+    --ink-soft:   #3E5C64;
+    --white:      #FFFFFF;
+    --line:       rgba(7,59,76,0.12);
+
+    --bg:         var(--white);
+    --bg-alt:     var(--seafoam-2);
+    --text:       var(--ink);
+    --text-soft:  var(--ink-soft);
+    --card-bg:    var(--white);
+    --card-line:  var(--line);
+    --header-bg:  rgba(255,255,255,0.86);
+
+    --step: 1;
+    --fs-base: 17px;
+    --radius: 14px;
+    --shadow-soft: 0 20px 50px -25px rgba(7,59,76,0.35);
+    --shadow-card: 0 12px 30px -18px rgba(7,59,76,0.28);
+  }
+
+  html[data-theme="dark"]{
+    --bg:        #06222B;
+    --bg-alt:    #082B36;
+    --text:      #EAF6F5;
+    --text-soft: #A9C7C9;
+    --card-bg:   #0B3542;
+    --card-line: rgba(207,243,231,0.14);
+    --header-bg: rgba(6,34,43,0.86);
+    --line:      rgba(207,243,231,0.14);
+    --shadow-soft: 0 20px 50px -20px rgba(0,0,0,0.55);
+    --shadow-card: 0 12px 30px -18px rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .35s ease, color .35s ease;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  .wrap{
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  h1,h2,h3,h4{
+    font-family: var(--font-display);
+    color: var(--text);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  p{ margin: 0 0 1em; color: var(--text-soft); }
+  ul{ margin:0; padding:0; }
+  .eyebrow-num{
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position: sticky; top:0; z-index: 50;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 12px;
+    padding: 14px 24px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+  .brand-mark{
+    width: 30px; height:30px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    flex-shrink:0;
+    position: relative;
+  }
+  .brand-mark::after{
+    content:"";
+    position:absolute; inset: 8px;
+    border-radius: 4px;
+    background: var(--white);
+    opacity:.85;
+  }
+  .controls{
+    display:flex; align-items:center; gap: 10px;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+  }
+  .progress-chip{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    border-radius: 999px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+  html[data-theme="dark"] .progress-chip{
+    background: rgba(79,209,197,0.16);
+    color: var(--aqua);
+  }
+  .fs-group, .theme-group{
+    display:flex; align-items:center; gap:4px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .fs-group button, .theme-toggle{
+    border: none; background: transparent;
+    color: var(--text-soft);
+    font-family: var(--font-body);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 6px 10px;
+    line-height: 1;
+    font-size: 0.8rem;
+  }
+  .fs-group button.active{
+    background: var(--turquoise);
+    color: #fff;
+  }
+  .theme-toggle{
+    display:flex; align-items:center; gap:6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  .theme-toggle svg{ width:15px; height:15px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 64px 0 56px;
+    background:
+      radial-gradient(120% 100% at 15% 0%, rgba(79,209,197,0.28), transparent 55%),
+      radial-gradient(120% 100% at 85% 10%, rgba(15,163,177,0.20), transparent 60%),
+      var(--bg);
+    text-align: center;
+  }
+  .hero .wrap{ display:flex; flex-direction:column; align-items:center; }
+  .hero-kicker{
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  html[data-theme="dark"] .hero-kicker{ background: rgba(79,209,197,0.16); color: var(--aqua); }
+  .hero h1{
+    font-size: clamp(2.1rem, 7vw, 4rem);
+    line-height: 1.05;
+    max-width: 16ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--turquoise);
+    font-weight: 500;
+  }
+  .hero p.lede{
+    max-width: 56ch;
+    font-size: clamp(1.02rem, 2.2vw, 1.2rem);
+    margin-top: 20px;
+  }
+  .hero-actions{
+    display:flex; gap:14px; margin-top: 8px; flex-wrap: wrap; justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 24px;
+    border-radius: 999px;
+    text-decoration:none;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--turquoise), var(--ocean-2));
+    color: #fff;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-ghost{
+    background: var(--card-bg);
+    color: var(--text);
+    border-color: var(--card-line);
+  }
+
+  .stat-strip{
+    margin-top: 44px;
+    width: 100%;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    text-align: left;
+  }
+  .stat-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card .num{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--ocean);
+  }
+  html[data-theme="dark"] .stat-card .num{ color: var(--aqua); }
+  .stat-card .lbl{
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
+
+  /* ---------- Section shells ---------- */
+  section{ padding: 68px 0; }
+  .section-alt{ background: var(--bg-alt); }
+  .section-head{
+    text-align:center;
+    max-width: 640px;
+    margin: 0 auto 44px;
+  }
+  .section-head .kicker{
+    font-weight: 700; font-size: 0.85rem; color: var(--turquoise-2);
+    margin-bottom: 10px; display:block;
+  }
+  html[data-theme="dark"] .section-head .kicker{ color: var(--aqua); }
+  .section-head h2{ font-size: clamp(1.6rem, 4.5vw, 2.4rem); }
+  .section-head p{ margin-top: 12px; }
+
+  /* ---------- Setup / context cards ---------- */
+  .context-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .context-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .context-card h3{ font-size: 1.25rem; margin-bottom: 10px;}
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .tag{
+    font-size: 0.78rem; font-weight: 700;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+  }
+  html[data-theme="dark"] .tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .tag.coral{ background: rgba(255,143,107,0.16); color: #C75A36; }
+  html[data-theme="dark"] .tag.coral{ color: var(--coral); }
+
+  /* ---------- Chapters (the 9 moves) ---------- */
+  .chapter{
+    border-top: 1px solid var(--card-line);
+    padding: 46px 0;
+  }
+  .chapter:first-of-type{ border-top: none; }
+  .chapter-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    align-items: start;
+  }
+  .chapter-head{
+    display:flex; align-items:flex-start; gap:16px;
+    margin-bottom: 14px;
+  }
+  .chapter-num{
+    font-size: 2.6rem;
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+    flex-shrink:0;
+  }
+  .chapter-title h3{ font-size: clamp(1.35rem, 3.4vw, 1.75rem); }
+  .chapter-title .subtitle{
+    color: var(--turquoise-2); font-weight: 700; font-size: 0.85rem;
+    margin-top: 4px; display:block;
+  }
+  html[data-theme="dark"] .chapter-title .subtitle{ color: var(--aqua); }
+
+  .term-box{
+    border-left: 4px solid var(--turquoise);
+    background: var(--bg-alt);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .term-box .term-label{
+    font-size: 0.72rem; font-weight: 800; letter-spacing: .04em;
+    color: var(--turquoise-2); margin-bottom: 4px; display:block;
+  }
+  html[data-theme="dark"] .term-box .term-label{ color: var(--aqua); }
+  .term-box p{ margin:0; color: var(--text); font-size: 0.94rem; }
+
+  .checklist-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .checklist-card h4{
+    font-size: 0.95rem; font-family: var(--font-body); font-weight: 800;
+    color: var(--text); margin-bottom: 14px;
+    text-align:left;
+  }
+  .checklist{ list-style:none; text-align:left; }
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--card-line);
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    cursor:pointer;
+  }
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist li input{
+    appearance: none;
+    width: 19px; height:19px; flex-shrink:0;
+    border-radius: 6px;
+    border: 2px solid var(--turquoise);
+    margin-top: 1px;
+    cursor:pointer;
+    position: relative;
+    transition: background .15s ease;
+  }
+  .checklist li input:checked{ background: var(--turquoise); }
+  .checklist li input:checked::after{
+    content:"";
+    position:absolute; left:5px; top:1px;
+    width:5px; height:10px;
+    border: solid white; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .checklist li.done span{
+    text-decoration: line-through;
+    color: var(--text-soft);
+    opacity: .6;
+  }
+  .result-callout{
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(15,163,177,0.10), rgba(79,209,197,0.14));
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--ocean);
+    font-weight: 600;
+  }
+  html[data-theme="dark"] .result-callout{ color: var(--seafoam); background: linear-gradient(135deg, rgba(15,163,177,0.14), rgba(79,209,197,0.10)); }
+
+  /* ---------- Pull quote ---------- */
+  .pullquote{
+    padding: 84px 0;
+    text-align:center;
+    background: linear-gradient(160deg, var(--ocean), var(--ocean-2));
+    color: #fff;
+  }
+  .pullquote .wrap{ max-width: 900px; }
+  .pullquote p{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: #fff;
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    line-height: 1.28;
+    margin-bottom: 18px;
+  }
+  .pullquote .attribution{
+    color: var(--seafoam);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-style: normal;
+  }
+
+  /* ---------- Results ---------- */
+  .results-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .result-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    text-align:center;
+  }
+  .result-card .before-after{
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    margin-top: 10px; flex-wrap: wrap;
+  }
+  .result-card .before-after .from{
+    color: var(--text-soft);
+    text-decoration: line-through;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+  .result-card .before-after .arrow{ color: var(--turquoise); }
+  .result-card .before-after .to{
+    color: var(--ocean);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.55rem;
+  }
+  html[data-theme="dark"] .result-card .before-after .to{ color: var(--aqua); }
+  .result-card .cap{ margin-top: 10px; font-size: 0.85rem; color: var(--text-soft); }
+
+  /* ---------- Pitfalls ---------- */
+  .pitfall-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .pitfall-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--coral);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .pitfall-card h4{ font-size: 1.02rem; margin-bottom: 6px; font-family: var(--font-display); font-weight: 600;}
+  .pitfall-card p{ margin:0; font-size: 0.9rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 50px 0 60px;
+    text-align: center;
+    background: var(--ocean);
+    color: var(--seafoam);
+  }
+  footer .wrap{ max-width: 720px; }
+  footer h3{ color: #fff; font-size: 1.4rem; margin-bottom: 12px; }
+  footer p{ color: rgba(207,243,231,0.85); font-size: 0.92rem; }
+  footer a.src-link{
+    color: #fff; font-weight: 700; text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  footer .disclaimer{
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid rgba(207,243,231,0.2);
+    font-size: 0.78rem; color: rgba(207,243,231,0.6);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (min-width: 640px){
+    .stat-strip{ grid-template-columns: repeat(4, 1fr); }
+    .context-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 900px){
+    .hero{ text-align:left; padding: 90px 0 80px; }
+    .hero .wrap{ align-items:flex-start; }
+    .hero-actions{ justify-content:flex-start; }
+    .hero-top{
+      display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center; width:100%;
+    }
+    .hero-copy{ text-align:left; }
+    .stat-strip{ margin-top:0; }
+
+    .section-head{ text-align:left; margin-left:0; }
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+
+    .chapter-grid{ grid-template-columns: 1.3fr 0.95fr; gap: 44px; }
+    .pitfall-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 1200px){
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+  }
+
+  :focus-visible{
+    outline: 3px solid var(--turquoise);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Hub-wide additions: crumb bar ---------- */
+  .crumb-bar{
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .crumb-inner{
+    max-width: 1320px; margin: 0 auto;
+    padding: 9px 24px;
+    display:flex; align-items:center; gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .crumb-inner a{
+    color: var(--turquoise-2);
+    text-decoration: none;
+    display:flex; align-items:center; gap: 5px;
+  }
+  html[data-theme="dark"] .crumb-inner a{ color: var(--aqua); }
+  .crumb-inner a:hover{ text-decoration: underline; }
+  .crumb-sep{ color: var(--text-soft); opacity:.5; }
+  .crumb-current{ color: var(--text-soft); font-weight: 600; }
+
+  /* ---------- Diagnostic / path cards (hub home) ---------- */
+  .path-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .path-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+    text-decoration:none;
+    display:block;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .path-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+  .path-card .path-icon{
+    width: 44px; height:44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 16px;
+    color:#fff;
+  }
+  .path-card .path-icon svg{ width:22px; height:22px; }
+  .path-card h3{ font-size: 1.15rem; margin-bottom: 8px; }
+  .path-card p{ font-size: 0.9rem; margin-bottom: 0; }
+  .path-card .path-cta{
+    margin-top: 14px; font-size: 0.83rem; font-weight: 800;
+    color: var(--turquoise-2); display:flex; align-items:center; gap:5px;
+  }
+  html[data-theme="dark"] .path-card .path-cta{ color: var(--aqua); }
+
+  /* ---------- Foundations grid (hub home) ---------- */
+  .foundation-grid{
+    display:grid; grid-template-columns: 1fr; gap: 18px;
+  }
+  .foundation-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .foundation-card .f-kicker{
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--turquoise);
+    display:block;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .foundation-card h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .foundation-card p{ font-size: 0.92rem; }
+  .dodont{
+    margin-top: 14px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .dodont div{
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    display:flex; gap:8px;
+    color: var(--text);
+  }
+  .dodont .do{ background: rgba(15,163,177,0.10); }
+  .dodont .dont{ background: rgba(255,143,107,0.12); }
+  html[data-theme="dark"] .dodont .do{ background: rgba(79,209,197,0.10); }
+  html[data-theme="dark"] .dodont .dont{ background: rgba(255,143,107,0.10); }
+  .dodont b{ flex-shrink:0; }
+
+  /* ---------- Playbook library cards (hub home) ---------- */
+  .lib-grid{
+    display:grid; grid-template-columns: 1fr; gap: 20px;
+  }
+  .lib-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display:flex; flex-direction:column;
+    text-decoration:none;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+    overflow:hidden;
+  }
+  .lib-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+  .lib-card .lib-tag{
+    align-self:flex-start;
+    font-size: 0.72rem; font-weight: 800; letter-spacing:.03em;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  html[data-theme="dark"] .lib-card .lib-tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .lib-card h3{ font-size: 1.4rem; margin-bottom: 10px; }
+  .lib-card p.hook{ font-size: 0.95rem; margin-bottom: 18px; }
+  .lib-stat-row{
+    display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 20px;
+  }
+  .lib-stat{
+    background: var(--bg-alt);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .lib-cta{
+    margin-top:auto;
+    font-weight: 800; font-size: 0.9rem;
+    color: var(--turquoise-2);
+    display:flex; align-items:center; gap:6px;
+  }
+  html[data-theme="dark"] .lib-cta{ color: var(--aqua); }
+  .lib-card.soon{
+    opacity: 0.6;
+    cursor: default;
+  }
+  .lib-card.soon:hover{ transform:none; box-shadow: var(--shadow-card); }
+  .lib-card.soon .lib-cta{ color: var(--text-soft); }
+
+  @media (min-width: 640px){
+    .path-grid{ grid-template-columns: repeat(3,1fr); }
+    .foundation-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 900px){
+    .lib-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 1100px){
+    .foundation-grid{ grid-template-columns: repeat(4,1fr); }
+  }
+
+  /* ---------- Field Notes: quick nav + note cards ---------- */
+  .quicknav{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    margin-top: 28px;
+  }
+  .quicknav a{
+    text-decoration:none;
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    padding: 9px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-card);
+  }
+  html[data-theme="dark"] .quicknav a{ color: var(--aqua); }
+
+  .note-section{
+    padding: 56px 0;
+    border-top: 1px solid var(--card-line);
+  }
+  .note-section:first-of-type{ border-top: none; }
+  .note-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .note-head .note-num{
+    font-family: var(--font-display);
+    font-weight: 300; font-style: italic;
+    font-size: 2.1rem; color: var(--turquoise);
+    line-height: 1;
+  }
+  .note-head h2{ font-size: clamp(1.35rem, 3.6vw, 1.9rem); }
+  .note-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .note-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--turquoise);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .note-card h4{
+    font-family: var(--font-display);
+    font-size: 1.08rem; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .note-card p{ font-size: 0.92rem; margin: 0; }
+
+  @media (min-width: 900px){
+    .note-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Compass
+    </div>
+    <div class="controls">
+      <div class="fs-group" role="group" aria-label="Text size">
+        <button type="button" data-size="0" aria-label="Small text">A-</button>
+        <button type="button" data-size="1" class="active" aria-label="Medium text">A</button>
+        <button type="button" data-size="2" aria-label="Large text">A+</button>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+  <div class="crumb-bar">
+    <div class="crumb-inner">
+      <a href="index.html">&larr; Compass Hub</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">Founder Field Notes</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-kicker">Standalone ideas, not a sequence</span>
+    <h1>Founder Field Notes</h1>
+    <p class="lede">The other guides in this hub follow one business, in order, from problem to fix. This one doesn't. It's a running reference of ideas worth keeping in your back pocket — pulled from a wide-ranging, unusually candid conversation about starting, pricing, hiring, growth, and the thinking behind all of it. Dip in wherever it's useful.</p>
+    <nav class="quicknav" aria-label="Jump to section">
+      <a href="#starting">Starting</a>
+      <a href="#pricing">Pricing &amp; Offers</a>
+      <a href="#hiring">Hiring &amp; Team</a>
+      <a href="#growth">Growth &amp; Retention</a>
+      <a href="#mindset">Decisions &amp; Mindset</a>
+    </nav>
+  </div>
+</section>
+
+<section class="note-section" id="starting">
+  <div class="wrap">
+    <div class="note-head">
+      <span class="note-num">01</span>
+      <h2>Starting</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card">
+        <h4>The four things that actually make you a business owner</h4>
+        <p>Not a business plan, not a logo, not permission. Just: an entity, a bank account, a way to accept payment, and asking a stranger — once — for money in exchange for something. Do those four things and the title has already changed from "aspiring" to "owner."</p>
+      </div>
+      <div class="note-card">
+        <h4>Fear lives in the vague, never in the specific</h4>
+        <p>"I might fail" is unanswerable, which is exactly why it feels so heavy. "What happens if I ask 100 people and all 100 say no" has an actual answer: you adjust the offer and ask 100 more. Naming the specific version of the fear usually shrinks it.</p>
+      </div>
+      <div class="note-card">
+        <h4>An unmade decision can last forever</h4>
+        <p>A choice you commit to gets corrected by feedback — you learn something and move again. A choice you never make just sits there, indefinitely, teaching you nothing. Most people lose more time standing at the fork than they would have lost picking the wrong path.</p>
+      </div>
+      <div class="note-card">
+        <h4>The earliest stage is the easiest to navigate</h4>
+        <p>It doesn't feel that way, but it's true: with nothing built yet, the next step is the same for everyone. As a business grows, the number of reasonable next steps multiplies — so "not knowing what to do" is far more a beginning-stage feeling than people expect, and it never fully goes away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="note-section" id="pricing">
+  <div class="wrap">
+    <div class="note-head">
+      <span class="note-num">02</span>
+      <h2>Pricing &amp; Offers</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card">
+        <h4>Don't sell out of your own wallet</h4>
+        <p>If something is easy for you, it's tempting to price it like it's easy for everyone. What actually matters is how much the customer doesn't want to do it themselves — not how simple it felt on your end.</p>
+      </div>
+      <div class="note-card">
+        <h4>A four-question way to find your real price</h4>
+        <p>Ask real prospects: at what price is this too expensive to consider? Too cheap to trust? Getting expensive, but you'd still buy? A genuine bargain? Plotting the answers reveals a real range — instead of guessing, or charging what you personally feel comfortable asking for.</p>
+      </div>
+      <div class="note-card">
+        <h4>Price is a forcing function, not a guess</h4>
+        <p>In a service business especially, price tends to track how far along the owner actually is. When demand keeps outpacing what you can deliver, that's the signal to raise price — not a reason to feel guilty about it.</p>
+      </div>
+      <div class="note-card">
+        <h4>Add a zero, then work backward</h4>
+        <p>Take whatever price feels reasonable and multiply it by ten. Then ask what would genuinely have to be true — what service, speed, or access — to make that number worth it. The answer usually reveals a premium version of the offer worth testing on a handful of people before it ever needs to scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="note-section" id="hiring">
+  <div class="wrap">
+    <div class="note-head">
+      <span class="note-num">03</span>
+      <h2>Hiring &amp; Team</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card">
+        <h4>There are no unicorns</h4>
+        <p>Founders often go looking for one person who can do everything they currently do. That person doesn't exist, and the search for them rarely ends. What usually exists instead is two or three people who are each excellent at one piece of it.</p>
+      </div>
+      <div class="note-card">
+        <h4>Teach it in a tenth of the time it took you</h4>
+        <p>You learned your job the slow way — through trial and error, and plenty of dead ends. When training someone else, teach it the way you wish someone had taught you: straight to what actually works, skipping the mistakes you no longer need them to repeat.</p>
+      </div>
+      <div class="note-card">
+        <h4>Whoever's most responsible sets the bar</h4>
+        <p>In any given area, the person who owns the outcome should hold the highest standard for what "good enough" means there. If someone else's bar is genuinely higher than yours, that's usually a sign they should be the one running it.</p>
+      </div>
+      <div class="note-card">
+        <h4>Price your referral bonus like it's actually worth something</h4>
+        <p>A business paying a flat, small bonus for a referral that generates six figures in gross profit isn't protecting its margins — it's underpricing its own best growth channel. If a referral is worth $250,000, a bonus in the tens of thousands is still a great trade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="note-section" id="growth">
+  <div class="wrap">
+    <div class="note-head">
+      <span class="note-num">04</span>
+      <h2>Growth &amp; Retention</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card">
+        <h4>Two businesses, same revenue, very different futures</h4>
+        <p>Picture two companies that each reach $3M in year three. One got there by replacing a shrinking pool of customers every single year. The other kept its customers and simply stacked new ones on top. Both show the same number on paper — only one of them gets easier to grow from here.</p>
+      </div>
+      <div class="note-card">
+        <h4>Almost every growth problem is one of two problems</h4>
+        <p>Either not enough people know you exist yet, or you already have more interest than you can currently handle. The second one is a good problem to have — but it's still a real constraint, and it calls for a different fix than more marketing.</p>
+      </div>
+      <div class="note-card">
+        <h4>The hiring pipeline and the sales pipeline are the same pipeline</h4>
+        <p>Generating interest, following up, making the case, onboarding, and keeping someone engaged over time — that sequence works whether the "someone" is a customer or a new hire. A business that's good at one and stuck on the other can usually just reuse its own playbook.</p>
+      </div>
+      <div class="note-card">
+        <h4>Automating a process isn't the same as fixing a constraint</h4>
+        <p>It's possible to spend heavily automating a task that was already working fine — and still not touch the actual thing limiting growth. Before automating anything, it's worth checking whether it was ever the bottleneck in the first place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="note-section" id="mindset">
+  <div class="wrap">
+    <div class="note-head">
+      <span class="note-num">05</span>
+      <h2>Decisions &amp; Mindset</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card">
+        <h4>Long-term thinking changes the foundation, not just the timeline</h4>
+        <p>Something meant to last five years and something meant to last fifty need genuinely different foundations from day one — not just a different amount of patience applied to the same plan.</p>
+      </div>
+      <div class="note-card">
+        <h4>A bad day isn't a strategy meeting</h4>
+        <p>Feeling discouraged today usually isn't enough evidence to justify changing a plan you built with a clear head. If the dissatisfaction is about your whole situation, it's worth acting on. If it's really just about today, it usually isn't.</p>
+      </div>
+      <div class="note-card">
+        <h4>Push if the thesis holds. Pivot if it doesn't.</h4>
+        <p>If a core assumption the business was built on turns out to be false, that's a real reason to change direction. If everything you believed at the start still looks true and it's simply taking longer than hoped, that's usually a reason to keep going instead.</p>
+      </div>
+      <div class="note-card">
+        <h4>Outsourcing your hardest thinking makes you weaker at it</h4>
+        <p>Tools that offer instant answers are genuinely useful for the easy decisions. But judgment is a skill, and skills that go unused tend to fade — so the highest-stakes calls are worth continuing to make yourself, deliberately, even when a faster answer is one click away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>About these notes</h3>
+    <p>This page is an independent, educational collection created to make a wide-ranging business conversation easier to reference later. The ideas here are drawn from a long-form conversation between business educator Alex Hormozi and Steven Bartlett on "The Diary Of A CEO" podcast, published publicly on YouTube.</p>
+    <p>This page is not affiliated with, endorsed by, or produced by Alex Hormozi, Acquisition.com, Steven Bartlett, or "The Diary Of A CEO." All ideas are paraphrased in our own words for teaching purposes. For the full conversation, see the original video.</p>
+    <p class="disclaimer">Educational content only. These are general principles, not advice tailored to your specific business — treat them as starting points to test against your own numbers.</p>
+    <p style="margin-top:22px;"><a class="src-link" href="index.html">&larr; Back to the Compass hub</a></p>
+  </div>
+</footer>
+
+<script>
+
+(function(){
+  // ---------- Font size control ----------
+  var sizes = ['15px','17px','19.5px'];
+  var fsButtons = document.querySelectorAll('.fs-group button');
+  fsButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      fsButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var idx = parseInt(btn.getAttribute('data-size'), 10);
+      document.documentElement.style.setProperty('--fs-base', sizes[idx]);
+    });
+  });
+
+  // ---------- Theme toggle (defaults light) ----------
+  var toggle = document.getElementById('themeToggle');
+  var label = document.getElementById('themeLabel');
+  var icon = document.getElementById('themeIcon');
+  var sunPath = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+  var moonPath = '<path d="M21 12.4A9 9 0 1 1 11.6 3a7 7 0 0 0 9.4 9.4z"></path>';
+
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    if(mode === 'dark'){
+      label.textContent = 'Light';
+      icon.innerHTML = moonPath;
+    } else {
+      label.textContent = 'Dark';
+      icon.innerHTML = sunPath;
+    }
+  }
+  toggle.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  setTheme('light');
+})();
+
+</script>
+
+</body>
+</html>
