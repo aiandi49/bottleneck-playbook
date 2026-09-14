@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Referral Machine Playbook — Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --font-display: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+    --font-body: 'Public Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    --ocean:      #073B4C;
+    --ocean-2:    #0B4F63;
+    --turquoise:  #0FA3B1;
+    --turquoise-2:#0C8A96;
+    --aqua:       #4FD1C5;
+    --seafoam:    #CFF3E7;
+    --seafoam-2:  #E8FAF3;
+    --coral:      #FF8F6B;
+    --ink:        #0B2530;
+    --ink-soft:   #3E5C64;
+    --white:      #FFFFFF;
+    --line:       rgba(7,59,76,0.12);
+
+    --bg:         var(--white);
+    --bg-alt:     var(--seafoam-2);
+    --text:       var(--ink);
+    --text-soft:  var(--ink-soft);
+    --card-bg:    var(--white);
+    --card-line:  var(--line);
+    --header-bg:  rgba(255,255,255,0.86);
+
+    --step: 1;
+    --fs-base: 17px;
+    --radius: 14px;
+    --shadow-soft: 0 20px 50px -25px rgba(7,59,76,0.35);
+    --shadow-card: 0 12px 30px -18px rgba(7,59,76,0.28);
+  }
+
+  html[data-theme="dark"]{
+    --bg:        #06222B;
+    --bg-alt:    #082B36;
+    --text:      #EAF6F5;
+    --text-soft: #A9C7C9;
+    --card-bg:   #0B3542;
+    --card-line: rgba(207,243,231,0.14);
+    --header-bg: rgba(6,34,43,0.86);
+    --line:      rgba(207,243,231,0.14);
+    --shadow-soft: 0 20px 50px -20px rgba(0,0,0,0.55);
+    --shadow-card: 0 12px 30px -18px rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .35s ease, color .35s ease;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  .wrap{
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  h1,h2,h3,h4{
+    font-family: var(--font-display);
+    color: var(--text);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  p{ margin: 0 0 1em; color: var(--text-soft); }
+  ul{ margin:0; padding:0; }
+  .eyebrow-num{
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position: sticky; top:0; z-index: 50;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 12px;
+    padding: 14px 24px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+  .brand-mark{
+    width: 30px; height:30px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    flex-shrink:0;
+    position: relative;
+  }
+  .brand-mark::after{
+    content:"";
+    position:absolute; inset: 8px;
+    border-radius: 4px;
+    background: var(--white);
+    opacity:.85;
+  }
+  .controls{
+    display:flex; align-items:center; gap: 10px;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+  }
+  .progress-chip{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    border-radius: 999px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+  html[data-theme="dark"] .progress-chip{
+    background: rgba(79,209,197,0.16);
+    color: var(--aqua);
+  }
+  .fs-group, .theme-group{
+    display:flex; align-items:center; gap:4px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .fs-group button, .theme-toggle{
+    border: none; background: transparent;
+    color: var(--text-soft);
+    font-family: var(--font-body);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 6px 10px;
+    line-height: 1;
+    font-size: 0.8rem;
+  }
+  .fs-group button.active{
+    background: var(--turquoise);
+    color: #fff;
+  }
+  .theme-toggle{
+    display:flex; align-items:center; gap:6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  .theme-toggle svg{ width:15px; height:15px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 64px 0 56px;
+    background:
+      radial-gradient(120% 100% at 15% 0%, rgba(79,209,197,0.28), transparent 55%),
+      radial-gradient(120% 100% at 85% 10%, rgba(15,163,177,0.20), transparent 60%),
+      var(--bg);
+    text-align: center;
+  }
+  .hero .wrap{ display:flex; flex-direction:column; align-items:center; }
+  .hero-kicker{
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--seafoam);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  html[data-theme="dark"] .hero-kicker{ background: rgba(79,209,197,0.16); color: var(--aqua); }
+  .hero h1{
+    font-size: clamp(2.1rem, 7vw, 4rem);
+    line-height: 1.05;
+    max-width: 16ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--turquoise);
+    font-weight: 500;
+  }
+  .hero p.lede{
+    max-width: 56ch;
+    font-size: clamp(1.02rem, 2.2vw, 1.2rem);
+    margin-top: 20px;
+  }
+  .hero-actions{
+    display:flex; gap:14px; margin-top: 8px; flex-wrap: wrap; justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 24px;
+    border-radius: 999px;
+    text-decoration:none;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--turquoise), var(--ocean-2));
+    color: #fff;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-ghost{
+    background: var(--card-bg);
+    color: var(--text);
+    border-color: var(--card-line);
+  }
+
+  .stat-strip{
+    margin-top: 44px;
+    width: 100%;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    text-align: left;
+  }
+  .stat-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card .num{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--ocean);
+  }
+  html[data-theme="dark"] .stat-card .num{ color: var(--aqua); }
+  .stat-card .lbl{
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
+
+  /* ---------- Section shells ---------- */
+  section{ padding: 68px 0; }
+  .section-alt{ background: var(--bg-alt); }
+  .section-head{
+    text-align:center;
+    max-width: 640px;
+    margin: 0 auto 44px;
+  }
+  .section-head .kicker{
+    font-weight: 700; font-size: 0.85rem; color: var(--turquoise-2);
+    margin-bottom: 10px; display:block;
+  }
+  html[data-theme="dark"] .section-head .kicker{ color: var(--aqua); }
+  .section-head h2{ font-size: clamp(1.6rem, 4.5vw, 2.4rem); }
+  .section-head p{ margin-top: 12px; }
+
+  /* ---------- Setup / context cards ---------- */
+  .context-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .context-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .context-card h3{ font-size: 1.25rem; margin-bottom: 10px;}
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .tag{
+    font-size: 0.78rem; font-weight: 700;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+  }
+  html[data-theme="dark"] .tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .tag.coral{ background: rgba(255,143,107,0.16); color: #C75A36; }
+  html[data-theme="dark"] .tag.coral{ color: var(--coral); }
+
+  /* ---------- Chapters (the 9 moves) ---------- */
+  .chapter{
+    border-top: 1px solid var(--card-line);
+    padding: 46px 0;
+  }
+  .chapter:first-of-type{ border-top: none; }
+  .chapter-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    align-items: start;
+  }
+  .chapter-head{
+    display:flex; align-items:flex-start; gap:16px;
+    margin-bottom: 14px;
+  }
+  .chapter-num{
+    font-size: 2.6rem;
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+    flex-shrink:0;
+  }
+  .chapter-title h3{ font-size: clamp(1.35rem, 3.4vw, 1.75rem); }
+  .chapter-title .subtitle{
+    color: var(--turquoise-2); font-weight: 700; font-size: 0.85rem;
+    margin-top: 4px; display:block;
+  }
+  html[data-theme="dark"] .chapter-title .subtitle{ color: var(--aqua); }
+
+  .term-box{
+    border-left: 4px solid var(--turquoise);
+    background: var(--bg-alt);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .term-box .term-label{
+    font-size: 0.72rem; font-weight: 800; letter-spacing: .04em;
+    color: var(--turquoise-2); margin-bottom: 4px; display:block;
+  }
+  html[data-theme="dark"] .term-box .term-label{ color: var(--aqua); }
+  .term-box p{ margin:0; color: var(--text); font-size: 0.94rem; }
+
+  .checklist-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .checklist-card h4{
+    font-size: 0.95rem; font-family: var(--font-body); font-weight: 800;
+    color: var(--text); margin-bottom: 14px;
+    text-align:left;
+  }
+  .checklist{ list-style:none; text-align:left; }
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--card-line);
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    cursor:pointer;
+  }
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist li input{
+    appearance: none;
+    width: 19px; height:19px; flex-shrink:0;
+    border-radius: 6px;
+    border: 2px solid var(--turquoise);
+    margin-top: 1px;
+    cursor:pointer;
+    position: relative;
+    transition: background .15s ease;
+  }
+  .checklist li input:checked{ background: var(--turquoise); }
+  .checklist li input:checked::after{
+    content:"";
+    position:absolute; left:5px; top:1px;
+    width:5px; height:10px;
+    border: solid white; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .checklist li.done span{
+    text-decoration: line-through;
+    color: var(--text-soft);
+    opacity: .6;
+  }
+  .result-callout{
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(15,163,177,0.10), rgba(79,209,197,0.14));
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--ocean);
+    font-weight: 600;
+  }
+  html[data-theme="dark"] .result-callout{ color: var(--seafoam); background: linear-gradient(135deg, rgba(15,163,177,0.14), rgba(79,209,197,0.10)); }
+
+  /* ---------- Pull quote ---------- */
+  .pullquote{
+    padding: 84px 0;
+    text-align:center;
+    background: linear-gradient(160deg, var(--ocean), var(--ocean-2));
+    color: #fff;
+  }
+  .pullquote .wrap{ max-width: 900px; }
+  .pullquote p{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: #fff;
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    line-height: 1.28;
+    margin-bottom: 18px;
+  }
+  .pullquote .attribution{
+    color: var(--seafoam);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-style: normal;
+  }
+
+  /* ---------- Results ---------- */
+  .results-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .result-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    text-align:center;
+  }
+  .result-card .before-after{
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    margin-top: 10px; flex-wrap: wrap;
+  }
+  .result-card .before-after .from{
+    color: var(--text-soft);
+    text-decoration: line-through;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+  .result-card .before-after .arrow{ color: var(--turquoise); }
+  .result-card .before-after .to{
+    color: var(--ocean);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.55rem;
+  }
+  html[data-theme="dark"] .result-card .before-after .to{ color: var(--aqua); }
+  .result-card .cap{ margin-top: 10px; font-size: 0.85rem; color: var(--text-soft); }
+
+  /* ---------- Pitfalls ---------- */
+  .pitfall-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .pitfall-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--coral);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .pitfall-card h4{ font-size: 1.02rem; margin-bottom: 6px; font-family: var(--font-display); font-weight: 600;}
+  .pitfall-card p{ margin:0; font-size: 0.9rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 50px 0 60px;
+    text-align: center;
+    background: var(--ocean);
+    color: var(--seafoam);
+  }
+  footer .wrap{ max-width: 720px; }
+  footer h3{ color: #fff; font-size: 1.4rem; margin-bottom: 12px; }
+  footer p{ color: rgba(207,243,231,0.85); font-size: 0.92rem; }
+  footer a.src-link{
+    color: #fff; font-weight: 700; text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  footer .disclaimer{
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid rgba(207,243,231,0.2);
+    font-size: 0.78rem; color: rgba(207,243,231,0.6);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (min-width: 640px){
+    .stat-strip{ grid-template-columns: repeat(4, 1fr); }
+    .context-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 900px){
+    .hero{ text-align:left; padding: 90px 0 80px; }
+    .hero .wrap{ align-items:flex-start; }
+    .hero-actions{ justify-content:flex-start; }
+    .hero-top{
+      display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center; width:100%;
+    }
+    .hero-copy{ text-align:left; }
+    .stat-strip{ margin-top:0; }
+
+    .section-head{ text-align:left; margin-left:0; }
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+
+    .chapter-grid{ grid-template-columns: 1.3fr 0.95fr; gap: 44px; }
+    .pitfall-grid{ grid-template-columns: repeat(2, 1fr); }
+    .results-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 1200px){
+    .context-grid{ grid-template-columns: repeat(4, 1fr); }
+  }
+
+  :focus-visible{
+    outline: 3px solid var(--turquoise);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Hub-wide additions: crumb bar ---------- */
+  .crumb-bar{
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .crumb-inner{
+    max-width: 1320px; margin: 0 auto;
+    padding: 9px 24px;
+    display:flex; align-items:center; gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .crumb-inner a{
+    color: var(--turquoise-2);
+    text-decoration: none;
+    display:flex; align-items:center; gap: 5px;
+  }
+  html[data-theme="dark"] .crumb-inner a{ color: var(--aqua); }
+  .crumb-inner a:hover{ text-decoration: underline; }
+  .crumb-sep{ color: var(--text-soft); opacity:.5; }
+  .crumb-current{ color: var(--text-soft); font-weight: 600; }
+
+  /* ---------- Diagnostic / path cards (hub home) ---------- */
+  .path-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .path-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+    text-decoration:none;
+    display:block;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .path-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+  .path-card .path-icon{
+    width: 44px; height:44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 16px;
+    color:#fff;
+  }
+  .path-card .path-icon svg{ width:22px; height:22px; }
+  .path-card h3{ font-size: 1.15rem; margin-bottom: 8px; }
+  .path-card p{ font-size: 0.9rem; margin-bottom: 0; }
+  .path-card .path-cta{
+    margin-top: 14px; font-size: 0.83rem; font-weight: 800;
+    color: var(--turquoise-2); display:flex; align-items:center; gap:5px;
+  }
+  html[data-theme="dark"] .path-card .path-cta{ color: var(--aqua); }
+
+  /* ---------- Foundations grid (hub home) ---------- */
+  .foundation-grid{
+    display:grid; grid-template-columns: 1fr; gap: 18px;
+  }
+  .foundation-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .foundation-card .f-kicker{
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--turquoise);
+    display:block;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .foundation-card h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .foundation-card p{ font-size: 0.92rem; }
+  .dodont{
+    margin-top: 14px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .dodont div{
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    display:flex; gap:8px;
+    color: var(--text);
+  }
+  .dodont .do{ background: rgba(15,163,177,0.10); }
+  .dodont .dont{ background: rgba(255,143,107,0.12); }
+  html[data-theme="dark"] .dodont .do{ background: rgba(79,209,197,0.10); }
+  html[data-theme="dark"] .dodont .dont{ background: rgba(255,143,107,0.10); }
+  .dodont b{ flex-shrink:0; }
+
+  /* ---------- Playbook library cards (hub home) ---------- */
+  .lib-grid{
+    display:grid; grid-template-columns: 1fr; gap: 20px;
+  }
+  .lib-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display:flex; flex-direction:column;
+    text-decoration:none;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+    overflow:hidden;
+  }
+  .lib-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+  .lib-card .lib-tag{
+    align-self:flex-start;
+    font-size: 0.72rem; font-weight: 800; letter-spacing:.03em;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  html[data-theme="dark"] .lib-card .lib-tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .lib-card h3{ font-size: 1.4rem; margin-bottom: 10px; }
+  .lib-card p.hook{ font-size: 0.95rem; margin-bottom: 18px; }
+  .lib-stat-row{
+    display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 20px;
+  }
+  .lib-stat{
+    background: var(--bg-alt);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .lib-cta{
+    margin-top:auto;
+    font-weight: 800; font-size: 0.9rem;
+    color: var(--turquoise-2);
+    display:flex; align-items:center; gap:6px;
+  }
+  html[data-theme="dark"] .lib-cta{ color: var(--aqua); }
+  .lib-card.soon{
+    opacity: 0.6;
+    cursor: default;
+  }
+  .lib-card.soon:hover{ transform:none; box-shadow: var(--shadow-card); }
+  .lib-card.soon .lib-cta{ color: var(--text-soft); }
+
+  @media (min-width: 640px){
+    .path-grid{ grid-template-columns: repeat(3,1fr); }
+    .foundation-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 900px){
+    .lib-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 1100px){
+    .foundation-grid{ grid-template-columns: repeat(4,1fr); }
+  }
+
+  /* ---------- Field Notes: quick nav + note cards ---------- */
+  .quicknav{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    margin-top: 28px;
+  }
+  .quicknav a{
+    text-decoration:none;
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    padding: 9px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-card);
+  }
+  html[data-theme="dark"] .quicknav a{ color: var(--aqua); }
+
+  .note-section{
+    padding: 56px 0;
+    border-top: 1px solid var(--card-line);
+  }
+  .note-section:first-of-type{ border-top: none; }
+  .note-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .note-head .note-num{
+    font-family: var(--font-display);
+    font-weight: 300; font-style: italic;
+    font-size: 2.1rem; color: var(--turquoise);
+    line-height: 1;
+  }
+  .note-head h2{ font-size: clamp(1.35rem, 3.6vw, 1.9rem); }
+  .note-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .note-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--turquoise);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .note-card h4{
+    font-family: var(--font-display);
+    font-size: 1.08rem; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .note-card p{ font-size: 0.92rem; margin: 0; }
+
+  @media (min-width: 900px){
+    .note-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Compass
+    </div>
+    <div class="controls">
+      <span class="progress-chip" id="progressChip">0 steps done</span>
+      <div class="fs-group" role="group" aria-label="Text size">
+        <button type="button" data-size="0" aria-label="Small text">A-</button>
+        <button type="button" data-size="1" class="active" aria-label="Medium text">A</button>
+        <button type="button" data-size="2" aria-label="Large text">A+</button>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+  <div class="crumb-bar">
+    <div class="crumb-inner">
+      <a href="index.html">&larr; Compass Hub</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">The Referral Machine Playbook</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="hero-copy">
+        <span class="hero-kicker">For anything people need to trust you before they'll buy</span>
+        <h1>Six moves that turn <em>word of mouth</em> into a <em>system</em>.</h1>
+        <p class="lede">A concierge medicine practice was already growing on referrals and reputation — but referrals were happening by accident, not by design, and a newsletter with no call to action was quietly wasting its own audience. This playbook covers how to engineer trust on purpose: for referrals, for events, and for anything expensive enough that a cold ad alone won't close it.</p>
+        <div class="hero-actions">
+          <a href="#chapters" class="btn btn-primary">Start with Move 01</a>
+          <a href="#results" class="btn btn-ghost">See what actually happened</a>
+        </div>
+      </div>
+      <div class="stat-strip" aria-label="Snapshot of the practice used as the working example">
+        <div class="stat-card"><div class="num">$3M</div><div class="lbl">revenue, last 12 months</div></div>
+        <div class="stat-card"><div class="num">$600K</div><div class="lbl">profit, before owner comp</div></div>
+        <div class="stat-card"><div class="num">16</div><div class="lbl">people on the team</div></div>
+        <div class="stat-card"><div class="num">$15M</div><div class="lbl">3-year revenue goal</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">THE STARTING POINT</span>
+      <h2>Good reputation, no system behind it.</h2>
+      <p>The example running through this guide is a concierge medicine practice selling a genuinely high-trust, high-ticket service — the kind of purchase nobody makes from a cold ad alone. Word of mouth was already working. The problem was that nothing behind it was designed on purpose: referrals happened by luck, not by process, and even the practice's own newsletter never asked readers to do anything at all.</p>
+    </div>
+    <div class="context-grid">
+      <div class="context-card">
+        <h3>An accidental engine</h3>
+        <p>Referrals converted well when they happened, but nothing in the business actively created more of them — it was hope, not a system.</p>
+        <div class="tag-row"><span class="tag">Word of mouth, unmanaged</span></div>
+      </div>
+      <div class="context-card">
+        <h3>An expensive lesson</h3>
+        <p>An early marketing agency cost $50,000 with no results, before the practice found someone who could actually make the channel work.</p>
+        <div class="tag-row"><span class="tag coral">Marketing chops, developing</span></div>
+      </div>
+      <div class="context-card">
+        <h3>A silent newsletter</h3>
+        <p>An existing newsletter reached real patients regularly — but never once asked them to book, refer, or enter anything.</p>
+        <div class="tag-row"><span class="tag">No call to action</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The goal</h3>
+        <p>Grow from $3M to $15M in three years, in an industry where trust has to be earned before anyone will pay a premium.</p>
+        <div class="tag-row"><span class="tag">High-trust, high-ticket</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="chapters">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">THE SEQUENCE</span>
+      <h2>Six moves, in the order they were actually proposed.</h2>
+      <p>Check items off as you complete them in your own business — your progress is saved automatically on this device.</p>
+    </div>
+
+    <!-- Chapter 1 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">01</span>
+            <div class="chapter-title">
+              <span class="subtitle">Stop hoping. Start designing.</span>
+              <h3>Turn word of mouth into a system, not an accident</h3>
+            </div>
+          </div>
+          <p>Most businesses treat referrals as something that happens to them, if they're lucky, rather than something they actively build. The fix is to give every happy customer a specific, valuable reason to refer — and to ask at every touchpoint, not just once at the end of a great experience.</p>
+          <p>The goal isn't a vague "tell your friends." It's a repeatable mechanism that runs the same way, every time, regardless of how memorable any one interaction happened to be.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · REFERRAL MACHINE</span>
+            <p>A system that makes referrals a built-in part of doing business, not a lucky accident. Instead of hoping happy customers mention you, give them a specific, valuable reason to — and ask at every touchpoint, not just once.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch1">
+            <li><input type="checkbox" id="ch1-1"><span>Identify every touchpoint where a happy customer could refer someone</span></li>
+            <li><input type="checkbox" id="ch1-2"><span>Design one specific, valuable reason to refer at each of them</span></li>
+            <li><input type="checkbox" id="ch1-3"><span>Make the ask a standard part of the process, not a special favor</span></li>
+            <li><input type="checkbox" id="ch1-4"><span>Track referrals as a number, not a feeling</span></li>
+          </ul>
+          <div class="result-callout">Referrals were already converting at a high rate — the missing piece was simply a system to generate more of them on purpose.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">02</span>
+            <div class="chapter-title">
+              <span class="subtitle">A coupon feels cheap. A gift feels generous.</span>
+              <h3>Design referrals so the referrer gains status, not just savings</h3>
+            </div>
+          </div>
+          <p>People refer friends more readily when doing so makes them look generous, not merely helpful. A discount code for both parties feels transactional — almost like asking a favor. A real treatment gifted to a friend feels like a genuine gift, with the giver getting the credit.</p>
+          <p>The shift is small in mechanics but large in psychology: instead of "you both get $500 off," it becomes "bring a friend to your next visit and give them this experience, on us."</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · SOCIAL CAPITAL POSITIVE REFERRALS</span>
+            <p>People refer friends when doing so makes them look good — not when it feels like doing the business a favor. Design the referral so the person making it gains status, not just savings.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch2">
+            <li><input type="checkbox" id="ch2-1"><span>Replace discount-style referral rewards with a real experience or product</span></li>
+            <li><input type="checkbox" id="ch2-2"><span>Frame the reward as something the referrer gives, not something they get</span></li>
+            <li><input type="checkbox" id="ch2-3"><span>Price it so the perceived value is high but your actual cost is low</span></li>
+            <li><input type="checkbox" id="ch2-4"><span>Test the new framing against your old one and compare referral rates</span></li>
+          </ul>
+          <div class="result-callout">A guest treatment worth far more than its delivery cost reframed referring from "a favor" into "a gift" — at almost no extra cost.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">03</span>
+            <div class="chapter-title">
+              <span class="subtitle">Never ask for a referral again</span>
+              <h3>Build the ask into every appointment, automatically</h3>
+            </div>
+          </div>
+          <p>Asking for referrals directly can feel awkward, both for the business and the customer — which is exactly why it so often doesn't happen consistently. The fix is to remove the awkward ask entirely by making it part of the normal booking flow.</p>
+          <p>Book the customer's next visit before they leave, then simply ask who they're bringing with them next time. It becomes a standard question, not a favor being requested — and it turns every single appointment into a built-in referral moment.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · BAM-FAM</span>
+            <p>Book the customer's next visit before they leave, then ask who they're bringing next time. It turns every appointment into a natural referral moment, without anyone ever having to "ask for referrals."</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch3">
+            <li><input type="checkbox" id="ch3-1"><span>Book every customer's next appointment before they leave the current one</span></li>
+            <li><input type="checkbox" id="ch3-2"><span>Add "who are you bringing next time?" as a standard closing question</span></li>
+            <li><input type="checkbox" id="ch3-3"><span>Train the whole team to ask it the same way, every time</span></li>
+            <li><input type="checkbox" id="ch3-4"><span>Track how many booked guests actually convert into new customers</span></li>
+          </ul>
+          <div class="result-callout">Turning the ask into a standard question — not a special favor — made it something the whole team could do consistently.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">04</span>
+            <div class="chapter-title">
+              <span class="subtitle">Information doesn't convert. Instructions do.</span>
+              <h3>Give every piece of communication an actual job</h3>
+            </div>
+          </div>
+          <p>A newsletter, an email, a social post — none of it does anything for the business unless it asks the reader to take a specific next step. Being "low pressure" is often confused with having no call to action at all, but the two aren't the same thing.</p>
+          <p>Even a soft, single-line ask — a P.S. mentioning a giveaway, an invitation to enter — gives a channel that was previously just informational an actual chance to generate business.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · CTA (CALL TO ACTION)</span>
+            <p>The specific action you want someone to take next — book a call, enter a giveaway, refer a friend. Communication without one is just information; nobody acts on information alone.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch4">
+            <li><input type="checkbox" id="ch4-1"><span>Audit your last few newsletters or updates for a clear CTA</span></li>
+            <li><input type="checkbox" id="ch4-2"><span>Add one specific, low-pressure ask to your next communication</span></li>
+            <li><input type="checkbox" id="ch4-3"><span>Make the ask easy: entering, referring, replying — not a big commitment</span></li>
+            <li><input type="checkbox" id="ch4-4"><span>Measure response before and after adding it</span></li>
+          </ul>
+          <div class="result-callout">A single soft-touch P.S. line gave a previously silent newsletter its first real reason to generate a response.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 5 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">05</span>
+            <div class="chapter-title">
+              <span class="subtitle">Cold ads struggle here. This doesn't.</span>
+              <h3>Replace cold funnels with warm, in-person events</h3>
+            </div>
+          </div>
+          <p>Expensive, high-trust purchases rarely convert well from a cold ad pointed straight at a checkout page — there simply hasn't been time to build the trust a big decision requires. In-person events flip that: your ideal customers are already gathered somewhere, and a live demonstration lets them experience the product before ever being asked to buy.</p>
+          <p>Rather than competing for cold attention online, the better play is showing up — or hosting — wherever the right audience already spends time, bringing something tangible to demonstrate on the spot.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · EVENT-BASED MARKETING</span>
+            <p>Rather than advertising to strangers online, you go to — or host — in-person gatherings where your ideal customers already show up, and bring a live demonstration they can experience on the spot.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch5">
+            <li><input type="checkbox" id="ch5-1"><span>List local events where your ideal customers already gather</span></li>
+            <li><input type="checkbox" id="ch5-2"><span>Bring a tangible demo people can experience in the moment</span></li>
+            <li><input type="checkbox" id="ch5-3"><span>Schedule a close soon after the demo, while trust is highest</span></li>
+            <li><input type="checkbox" id="ch5-4"><span>Track which events convert well enough to repeat every year</span></li>
+          </ul>
+          <div class="result-callout">A single strong event can be worth pursuing again every year — the goal is finding the few that reliably work, then repeating them.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div class="chapter">
+      <div class="chapter-grid">
+        <div>
+          <div class="chapter-head">
+            <span class="chapter-num">06</span>
+            <div class="chapter-title">
+              <span class="subtitle">Say the big number before you need to</span>
+              <h3>Use a giveaway to make the price feel familiar, not shocking</h3>
+            </div>
+          </div>
+          <p>Announcing a high price for the first time, in the middle of a sales conversation, is when it lands hardest. A giveaway lets you say the same number much earlier — and out loud, to everyone — so that by the time someone's actually deciding whether to buy, the number is already familiar instead of alarming.</p>
+          <p>The offer itself doesn't need to turn a profit. Its job is pulling the right people in; the real return comes from the customers it creates afterward, not the giveaway itself.</p>
+          <div class="term-box">
+            <span class="term-label">KEY TERM · STICKER SHOCK</span>
+            <p>The jolt of hearing a big number for the first time. Announcing that same number earlier, as the prize in a giveaway, means it's already familiar by the time someone's deciding whether to buy.</p>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <h4>Do this</h4>
+          <ul class="checklist" data-group="ch6">
+            <li><input type="checkbox" id="ch6-1"><span>Choose your highest-value offer as the giveaway prize</span></li>
+            <li><input type="checkbox" id="ch6-2"><span>Announce its real value publicly and often</span></li>
+            <li><input type="checkbox" id="ch6-3"><span>Let everyone who doesn't win access a paid version of the same thing</span></li>
+            <li><input type="checkbox" id="ch6-4"><span>Don't worry about the cost of the giveaway itself — track what it brings in after</span></li>
+          </ul>
+          <div class="result-callout">Being willing to give away the highest-value offer, publicly, was described as one of the biggest mental shifts in the whole plan.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="pullquote">
+  <div class="wrap">
+    <p>Big, expensive decisions aren't won with a bigger ad budget. They're won with more trust, built earlier, in person, before the price ever comes up.</p>
+    <div class="attribution">The core idea behind Move 05</div>
+  </div>
+</section>
+
+<section id="results" class="section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">WHAT ACTUALLY HAPPENED</span>
+      <h2>The plan didn't survive contact with the calendar — the strategy did</h2>
+      <p>Not every case study ends with a clean before-and-after number, and this one is worth including honestly for exactly that reason.</p>
+    </div>
+    <div class="context-grid">
+      <div class="context-card">
+        <h3>The complication</h3>
+        <p>The plan called for attending an outside event roughly once a week. But the practice's market is seasonal — roughly half the local population leaves for several months a year — and there simply weren't enough existing events to attend at that pace.</p>
+        <div class="tag-row"><span class="tag coral">Plan met reality</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The pivot</h3>
+        <p>Rather than abandon event-based marketing, the practice built its own recurring lecture series at venues where its ideal clients already gather — turning "find other people's events" into "become the event."</p>
+        <div class="tag-row"><span class="tag">Owned, not borrowed</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The unplanned upside</h3>
+        <p>Appearing publicly while working through this exact problem generated inbound interest from other physicians wanting to copy the model — a distribution channel nobody had planned for.</p>
+        <div class="tag-row"><span class="tag">Visibility as marketing</span></div>
+      </div>
+      <div class="context-card">
+        <h3>The lesson</h3>
+        <p>The specific tactic — attend an existing event weekly — was never the actual goal. The goal was warm, in-person, high-trust demand generation. Once the first vehicle didn't fit the market, switching to a second one kept the strategy intact.</p>
+        <div class="tag-row"><span class="tag coral">Tactic changed. Strategy didn't.</span></div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:22px; font-size:0.9rem;">This is the "push vs. pivot" idea in practice — see it as a standalone principle in <a href="field-notes.html#mindset" style="color:var(--turquoise-2); font-weight:700; text-decoration:none;">Founder Field Notes → Decisions &amp; Mindset</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">WHERE PEOPLE GET STUCK</span>
+      <h2>Common ways this sequence goes wrong</h2>
+      <p>The ideas are simple. Here's what tends to derail people when they actually try to apply them.</p>
+    </div>
+    <div class="pitfall-grid">
+      <div class="pitfall-card">
+        <h4>Assuming your market behaves like every other market</h4>
+        <p>Seasonality, local density, and customer habits vary enormously. A weekly cadence that works in one city may be structurally impossible in another.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Following the letter of a plan over its intent</h4>
+        <p>The specific tactic in any plan is a means, not the goal. When a tactic stops fitting reality, the fix is a new tactic — not abandoning the underlying strategy.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Rewarding referrals with a discount instead of a gift</h4>
+        <p>A coupon-style reward can quietly undercut the very motivation — looking generous — that made someone want to refer a friend in the first place.</p>
+      </div>
+      <div class="pitfall-card">
+        <h4>Treating a newsletter as an update instead of a channel</h4>
+        <p>Regular communication with real customers is a channel with no media cost. Sending it without ever asking for anything wastes that entirely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>About this guide</h3>
+    <p>This guide is an independent, educational breakdown created to make a real marketing and referral system easier to actually apply, step by step. The underlying case study and teaching points are drawn from a coaching conversation between business educator Alex Hormozi and the owner of a concierge medicine practice, published publicly on YouTube as part of "The Game w/ Alex Hormozi" and its "Scale or Fail" series.</p>
+    <p>This guide is not affiliated with, endorsed by, or produced by Alex Hormozi or Acquisition.com. All figures are approximate and paraphrased from that publicly available conversation for teaching purposes. For the original conversation and additional resources, see the source video.</p>
+    <p class="disclaimer">Educational content only. Every business is different — treat these as a starting sequence to test in your own numbers, not a guarantee of results.</p>
+    <p style="margin-top:22px;"><a class="src-link" href="index.html">&larr; Back to the Compass hub</a></p>
+  </div>
+</footer>
+
+<script>
+
+(function(){
+  // ---------- Font size control ----------
+  var sizes = ['15px','17px','19.5px'];
+  var fsButtons = document.querySelectorAll('.fs-group button');
+  fsButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      fsButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var idx = parseInt(btn.getAttribute('data-size'), 10);
+      document.documentElement.style.setProperty('--fs-base', sizes[idx]);
+    });
+  });
+
+  // ---------- Theme toggle (defaults light) ----------
+  var toggle = document.getElementById('themeToggle');
+  var label = document.getElementById('themeLabel');
+  var icon = document.getElementById('themeIcon');
+  var sunPath = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+  var moonPath = '<path d="M21 12.4A9 9 0 1 1 11.6 3a7 7 0 0 0 9.4 9.4z"></path>';
+
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    if(mode === 'dark'){
+      label.textContent = 'Light';
+      icon.innerHTML = moonPath;
+    } else {
+      label.textContent = 'Dark';
+      icon.innerHTML = sunPath;
+    }
+  }
+  toggle.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  setTheme('light');
+
+  // ---------- Checklist persistence via window.storage ----------
+  var STORAGE_KEY = 'referral-machine-playbook-progress';
+  var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.checklist input[type="checkbox"]'));
+  var total = checkboxes.length;
+  var chip = document.getElementById('progressChip');
+
+  function updateChip(){
+    var done = checkboxes.filter(function(c){ return c.checked; }).length;
+    chip.textContent = done + ' / ' + total + ' steps done';
+  }
+
+  function applyState(state){
+    checkboxes.forEach(function(cb){
+      var checked = !!(state && state[cb.id]);
+      cb.checked = checked;
+      cb.closest('li').classList.toggle('done', checked);
+    });
+    updateChip();
+  }
+
+  async function loadState(){
+    try{
+      if(window.storage && window.storage.get){
+        var result = await window.storage.get(STORAGE_KEY, false);
+        if(result && result.value){
+          applyState(JSON.parse(result.value));
+          return;
+        }
+      }
+    }catch(e){ /* no saved state yet */ }
+    updateChip();
+  }
+
+  var saveTimer = null;
+  function saveState(){
+    var state = {};
+    checkboxes.forEach(function(cb){ state[cb.id] = cb.checked; });
+    if(window.storage && window.storage.set){
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function(){
+        window.storage.set(STORAGE_KEY, JSON.stringify(state), false).catch(function(){});
+      }, 250);
+    }
+  }
+
+  checkboxes.forEach(function(cb){
+    cb.addEventListener('change', function(){
+      cb.closest('li').classList.toggle('done', cb.checked);
+      updateChip();
+      saveState();
+    });
+  });
+
+  document.querySelectorAll('.checklist li').forEach(function(li){
+    li.addEventListener('click', function(e){
+      if(e.target.tagName.toLowerCase() !== 'input'){
+        var cb = li.querySelector('input');
+        cb.checked = !cb.checked;
+        cb.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+
+  loadState();
+})();
+
+</script>
+
+</body>
+</html>
