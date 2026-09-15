@@ -16,6 +16,7 @@ This repo is a static site — no build step, no dependencies. Open any `.html` 
 | `menu-close-playbook.html` | Playbook 3: raising revenue per job in a service business through offer, close, and channel focus |
 | `referral-machine-playbook.html` | Playbook 4: engineering referrals and trust for high-ticket sales — includes an honest "plan met reality" pivot instead of a clean win |
 | `good-selling-playbook.html` | Playbook 5: for founders who resist selling on principle — reframing structure, pricing, and a real pitch as compatible with an honest mission |
+| `value-leader-playbook.html` | Playbook 6: escaping commodity pricing through tiered offers and partner status — includes an honest rejection, explained as a fit decision rather than a quality one |
 | `field-notes.html` | Founder Field Notes — a non-sequential reference of standalone ideas on starting, pricing, hiring, growth, and mindset |
 
 `index.html` is the entry point (this is what GitHub Pages will serve at the repo's root URL). Each playbook links back to it via the breadcrumb bar in its header.
