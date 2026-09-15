@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Bottleneck Playbook — Compass</title>
+<title>The Value Leader Playbook — Compass</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+
   :root{
     --font-display: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
     --font-body: 'Public Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -527,7 +528,16 @@
     .context-grid{ grid-template-columns: repeat(4, 1fr); }
   }
 
-  /* ---------- Hub crumb bar ---------- */
+  :focus-visible{
+    outline: 3px solid var(--turquoise);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Hub-wide additions: crumb bar ---------- */
   .crumb-bar{
     background: var(--bg-alt);
     border-bottom: 1px solid var(--card-line);
@@ -549,14 +559,194 @@
   .crumb-sep{ color: var(--text-soft); opacity:.5; }
   .crumb-current{ color: var(--text-soft); font-weight: 600; }
 
-  :focus-visible{
-    outline: 3px solid var(--turquoise);
-    outline-offset: 2px;
+  /* ---------- Diagnostic / path cards (hub home) ---------- */
+  .path-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
   }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  .path-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+    text-decoration:none;
+    display:block;
+    transition: transform .18s ease, box-shadow .18s ease;
   }
+  .path-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+  .path-card .path-icon{
+    width: 44px; height:44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--turquoise), var(--aqua));
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 16px;
+    color:#fff;
+  }
+  .path-card .path-icon svg{ width:22px; height:22px; }
+  .path-card h3{ font-size: 1.15rem; margin-bottom: 8px; }
+  .path-card p{ font-size: 0.9rem; margin-bottom: 0; }
+  .path-card .path-cta{
+    margin-top: 14px; font-size: 0.83rem; font-weight: 800;
+    color: var(--turquoise-2); display:flex; align-items:center; gap:5px;
+  }
+  html[data-theme="dark"] .path-card .path-cta{ color: var(--aqua); }
+
+  /* ---------- Foundations grid (hub home) ---------- */
+  .foundation-grid{
+    display:grid; grid-template-columns: 1fr; gap: 18px;
+  }
+  .foundation-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+  }
+  .foundation-card .f-kicker{
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--turquoise);
+    display:block;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .foundation-card h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .foundation-card p{ font-size: 0.92rem; }
+  .dodont{
+    margin-top: 14px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .dodont div{
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    display:flex; gap:8px;
+    color: var(--text);
+  }
+  .dodont .do{ background: rgba(15,163,177,0.10); }
+  .dodont .dont{ background: rgba(255,143,107,0.12); }
+  html[data-theme="dark"] .dodont .do{ background: rgba(79,209,197,0.10); }
+  html[data-theme="dark"] .dodont .dont{ background: rgba(255,143,107,0.10); }
+  .dodont b{ flex-shrink:0; }
+
+  /* ---------- Playbook library cards (hub home) ---------- */
+  .lib-grid{
+    display:grid; grid-template-columns: 1fr; gap: 20px;
+  }
+  .lib-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display:flex; flex-direction:column;
+    text-decoration:none;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+    overflow:hidden;
+  }
+  .lib-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+  .lib-card .lib-tag{
+    align-self:flex-start;
+    font-size: 0.72rem; font-weight: 800; letter-spacing:.03em;
+    background: var(--seafoam); color: var(--turquoise-2);
+    padding: 5px 12px; border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  html[data-theme="dark"] .lib-card .lib-tag{ background: rgba(79,209,197,0.14); color: var(--aqua); }
+  .lib-card h3{ font-size: 1.4rem; margin-bottom: 10px; }
+  .lib-card p.hook{ font-size: 0.95rem; margin-bottom: 18px; }
+  .lib-stat-row{
+    display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 20px;
+  }
+  .lib-stat{
+    background: var(--bg-alt);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .lib-cta{
+    margin-top:auto;
+    font-weight: 800; font-size: 0.9rem;
+    color: var(--turquoise-2);
+    display:flex; align-items:center; gap:6px;
+  }
+  html[data-theme="dark"] .lib-cta{ color: var(--aqua); }
+  .lib-card.soon{
+    opacity: 0.6;
+    cursor: default;
+  }
+  .lib-card.soon:hover{ transform:none; box-shadow: var(--shadow-card); }
+  .lib-card.soon .lib-cta{ color: var(--text-soft); }
+
+  @media (min-width: 640px){
+    .path-grid{ grid-template-columns: repeat(3,1fr); }
+    .foundation-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 900px){
+    .lib-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 1100px){
+    .foundation-grid{ grid-template-columns: repeat(4,1fr); }
+  }
+
+  /* ---------- Field Notes: quick nav + note cards ---------- */
+  .quicknav{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    margin-top: 28px;
+  }
+  .quicknav a{
+    text-decoration:none;
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--turquoise-2);
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    padding: 9px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-card);
+  }
+  html[data-theme="dark"] .quicknav a{ color: var(--aqua); }
+
+  .note-section{
+    padding: 56px 0;
+    border-top: 1px solid var(--card-line);
+  }
+  .note-section:first-of-type{ border-top: none; }
+  .note-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .note-head .note-num{
+    font-family: var(--font-display);
+    font-weight: 300; font-style: italic;
+    font-size: 2.1rem; color: var(--turquoise);
+    line-height: 1;
+  }
+  .note-head h2{ font-size: clamp(1.35rem, 3.6vw, 1.9rem); }
+  .note-grid{
+    display:grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .note-card{
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-left: 4px solid var(--turquoise);
+    border-radius: 0 16px 16px 0;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .note-card h4{
+    font-family: var(--font-display);
+    font-size: 1.08rem; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .note-card p{ font-size: 0.92rem; margin: 0; }
+
+  @media (min-width: 900px){
+    .note-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+
 </style>
 </head>
 <body>
@@ -565,10 +755,10 @@
   <div class="header-inner">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true"></span>
-      Bottleneck Playbook
+      Compass
     </div>
     <div class="controls">
-      <span class="progress-chip" id="progressChip">0 / 34 steps done</span>
+      <span class="progress-chip" id="progressChip">0 steps done</span>
       <div class="fs-group" role="group" aria-label="Text size">
         <button type="button" data-size="0" aria-label="Small text">A-</button>
         <button type="button" data-size="1" class="active" aria-label="Medium text">A</button>
@@ -584,7 +774,7 @@
     <div class="crumb-inner">
       <a href="index.html">&larr; Compass Hub</a>
       <span class="crumb-sep">/</span>
-      <span class="crumb-current">Bottleneck Playbook</span>
+      <span class="crumb-current">The Value Leader Playbook</span>
     </div>
   </div>
 </header>
@@ -593,19 +783,19 @@
   <div class="wrap">
     <div class="hero-top">
       <div class="hero-copy">
-        <span class="hero-kicker">A guided walkthrough, not a highlight reel</span>
-        <h1>Nine moves that turn a <em>capped</em> business into a <em>scaling</em> one.</h1>
-        <p class="lede">Most owners already know the theory. What trips people up is the order of operations — what to fix first, what to leave alone, and what to never touch until the earlier steps are done. This hub breaks a real scaling conversation down into a sequence you can actually follow.</p>
+        <span class="hero-kicker">For anyone competing purely on price</span>
+        <h1>Seven moves to stop being the <em>same</em> as everyone else.</h1>
+        <p class="lede">A local moving company was already profitable and already priced near the top of its market — but still trapped in an hourly-rate arms race where every customer's first and only question was the price. This playbook is about the moment a business stops competing on a shared number and starts competing on things nobody else is even mentioning.</p>
         <div class="hero-actions">
           <a href="#chapters" class="btn btn-primary">Start with Move 01</a>
-          <a href="#results" class="btn btn-ghost">Jump to the results</a>
+          <a href="#results" class="btn btn-ghost">See the decision</a>
         </div>
       </div>
-      <div class="stat-strip" aria-label="Snapshot of the practice used as the working example">
-        <div class="stat-card"><div class="num">1 doctor</div><div class="lbl">handling 3 locations</div></div>
-        <div class="stat-card"><div class="num">25–30</div><div class="lbl">patients/month, hard ceiling</div></div>
-        <div class="stat-card"><div class="num">15–30 days</div><div class="lbl">booked out before treatment</div></div>
-        <div class="stat-card"><div class="num">9 moves</div><div class="lbl">applied over 90 days</div></div>
+      <div class="stat-strip" aria-label="Snapshot of the business used as the working example">
+        <div class="stat-card"><div class="num">$300K</div><div class="lbl">revenue, last 12 months</div></div>
+        <div class="stat-card"><div class="num">62%</div><div class="lbl">profit margin</div></div>
+        <div class="stat-card"><div class="num">40%</div><div class="lbl">of quotes lost on price alone</div></div>
+        <div class="stat-card"><div class="num">3x</div><div class="lbl">profit per job via one channel</div></div>
       </div>
     </div>
   </div>
@@ -615,29 +805,29 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">THE STARTING POINT</span>
-      <h2>One expert, doing everything, everywhere.</h2>
-      <p>The example running through this guide is a real, three-location dental practice. It's a useful case precisely because it's ordinary: one highly skilled owner was personally required for every high-value step of delivery, so the business could only grow as fast as one calendar allowed.</p>
+      <h2>Already good. Still interchangeable.</h2>
+      <p>The example running through this guide is a local moving company already priced near the top of its market, with real differentiators — better trucks, better materials, no hidden fees. The problem was that none of it was being said out loud in a way that actually changed the conversation. On the phone, the business still sounded exactly like every competitor: an hourly rate, and not much else.</p>
     </div>
     <div class="context-grid">
       <div class="context-card">
-        <h3>The bottleneck</h3>
-        <p>Every implant case needed five visits. The founder personally did all five — including the ones that didn't require his specific skill.</p>
-        <div class="tag-row"><span class="tag">Single point of failure</span></div>
+        <h3>A shared scoreboard</h3>
+        <p>Priced by the same hourly rate as competitors, the business could only really compete on being a little cheaper or a little pricier — nothing else was part of the conversation.</p>
+        <div class="tag-row"><span class="tag coral">Commodity pricing</span></div>
       </div>
       <div class="context-card">
-        <h3>The symptom</h3>
-        <p>New patients waited 2–4 weeks just to be diagnosed. By the time they were seen, some had already gone elsewhere.</p>
-        <div class="tag-row"><span class="tag coral">Lost revenue</span></div>
+        <h3>An edge already found, barely used</h3>
+        <p>A small number of jobs sourced through real estate referrals were quietly generating triple the profit of the average job — but the channel was treated as a side experiment.</p>
+        <div class="tag-row"><span class="tag">Underused advantage</span></div>
       </div>
       <div class="context-card">
-        <h3>The hidden cost</h3>
-        <p>Pricing had barely moved in years, despite an 85%+ close rate — usually a sign that price is set well below what the market will bear.</p>
-        <div class="tag-row"><span class="tag">Underpriced</span></div>
+        <h3>Losing on the only variable offered</h3>
+        <p>When price is the only thing being compared, a large share of quotes will always go to whoever's cheaper — even when the more expensive option is clearly better.</p>
+        <div class="tag-row"><span class="tag coral">40% lost to price</span></div>
       </div>
       <div class="context-card">
         <h3>The goal</h3>
-        <p>Grow from roughly $2M to $15M a year — without the founder simply working more hours than he already was.</p>
-        <div class="tag-row"><span class="tag">Growth without burnout</span></div>
+        <p>Grow into multiple locations over the next few years — a goal that, as it turns out, says as much about readiness as it does about ambition.</p>
+        <div class="tag-row"><span class="tag">Multi-location growth</span></div>
       </div>
     </div>
   </div>
@@ -647,7 +837,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">THE SEQUENCE</span>
-      <h2>The nine moves, in the order they actually need to happen.</h2>
+      <h2>Seven moves, fixed back to front: offer, then sales, then traffic.</h2>
       <p>Check items off as you complete them in your own business — your progress is saved automatically on this device.</p>
     </div>
 
@@ -658,27 +848,26 @@
           <div class="chapter-head">
             <span class="chapter-num">01</span>
             <div class="chapter-title">
-              <span class="subtitle">Fix capacity first</span>
-              <h3>Find your bottleneck and hand off everything else</h3>
+              <span class="subtitle">Name the trap before fixing it</span>
+              <h3>Stop competing as a commodity</h3>
             </div>
           </div>
-          <p>Before spending a dollar on marketing or touching your prices, map exactly how your product or service gets delivered, step by step. In almost every capped business, one person — usually the founder — is personally required for steps that don't actually need their specific skill.</p>
-          <p>The fix isn't working harder. It's separating the two or three steps that truly require expert judgment from everything else, and building a system so someone else can competently do the rest. In the practice used here, only 2 of 5 treatment visits genuinely required the founder — handing off the other 3 doubled capacity without hiring a second expert.</p>
+          <p>When a customer looks at two options and genuinely can't tell them apart, they will take the cheaper one every time — not because price is what they care about most, but because it's the only thing left to compare. Being measured in the exact same unit as every competitor — an hourly rate, a flat fee — guarantees that comparison happens.</p>
+          <p>The fix isn't necessarily changing the pricing model. It's making sure a customer has more than one number to think about before they decide.</p>
           <div class="term-box">
-            <span class="term-label">KEY TERM · POINT OF LEVERAGE</span>
-            <p>The one move that returns the most result for the effort it costs. Worth hunting for, instead of chasing a long list of minor tweaks.</p>
+            <span class="term-label">KEY CONCEPT · THE COMMODITY PROBLEM</span>
+            <p>If a customer can look at two options and conclude they're the same, they will always choose the cheaper one. The way out isn't necessarily being cheapest — it's giving them real reasons the two aren't actually the same thing.</p>
           </div>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch1">
-            <li><input type="checkbox" id="ch1-1"><span>List every step of delivery, in order, from first contact to finished job</span></li>
-            <li><input type="checkbox" id="ch1-2"><span>Mark which steps truly require your top expert's specific skill</span></li>
-            <li><input type="checkbox" id="ch1-3"><span>Everything else gets handed off — even if it feels uncomfortable at first</span></li>
-            <li><input type="checkbox" id="ch1-4"><span>Script a short "handoff" moment so customers trust the new person</span></li>
-            <li><input type="checkbox" id="ch1-5"><span>Reposition your expert as "the architect," not the only capable hands</span></li>
+            <li><input type="checkbox" id="ch1-1"><span>List what a customer currently compares you on (usually just price)</span></li>
+            <li><input type="checkbox" id="ch1-2"><span>List everything real that makes your service different</span></li>
+            <li><input type="checkbox" id="ch1-3"><span>Check how many of those differences are ever mentioned out loud</span></li>
+            <li><input type="checkbox" id="ch1-4"><span>Decide whether you're playing the cheapest game or the best game — pick one on purpose</span></li>
           </ul>
-          <div class="result-callout">Result in the case study: capacity roughly doubled — from ~25–30 clients a month to ~50 — with no new experts hired.</div>
+          <div class="result-callout">The business already had real differentiators — better materials, no hidden fees — that simply weren't part of the sales conversation yet.</div>
         </div>
       </div>
     </div>
@@ -690,27 +879,26 @@
           <div class="chapter-head">
             <span class="chapter-num">02</span>
             <div class="chapter-title">
-              <span class="subtitle">Only after capacity is real</span>
-              <h3>Turn up spend on what's already working</h3>
+              <span class="subtitle">Give customers something else to compare</span>
+              <h3>Build a tiered offer around what competitors never mention</h3>
             </div>
           </div>
-          <p>Adding marketing to a business that can't yet deliver more work doesn't create growth — it just creates a longer wait list. Once you've genuinely freed up capacity, though, the fastest and lowest-risk growth lever is usually more of what's already converting.</p>
-          <p>Check your local market's ceiling before assuming you're near it. Most businesses stop increasing ad spend far earlier than the market actually requires.</p>
+          <p>Three things quietly drive most purchase decisions: how fast something happens, how safe or risky it feels, and how easy it is. A business that never talks about any of the three is leaving the entire decision to price by default.</p>
+          <p>Building a clear "premium" tier — vetted staff, full materials included, a guaranteed cap on cost — gives a customer with money to spend an obvious way to spend more, while a simpler tier still exists for anyone who genuinely just wants the cheapest option.</p>
           <div class="term-box">
-            <span class="term-label">KEY TERM · SUPPLY CONSTRAINED</span>
-            <p>A state where demand already exceeds what you can deliver. Adding more marketing here doesn't create growth — it just lengthens the line.</p>
+            <span class="term-label">KEY CONCEPT · SPEED, RISK, EASE</span>
+            <p>Three levers that differentiate a service beyond price: how fast you deliver it, how safe the customer feels using it, and how easy it is for them. Most businesses only compete on price because they've never priced these three separately.</p>
           </div>
-          <p style="font-size:0.85rem;">For a concrete way to turn this into margin, see the speed-pricing move in <a href="menu-close-playbook.html#chapters" style="color:var(--turquoise-2); font-weight:700; text-decoration:none;">The Menu Close Playbook</a>.</p>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch2">
-            <li><input type="checkbox" id="ch2-1"><span>Confirm the capacity fix from Move 1 is actually in place</span></li>
-            <li><input type="checkbox" id="ch2-2"><span>Identify the one channel that already converts reliably</span></li>
-            <li><input type="checkbox" id="ch2-3"><span>Research what your local market can realistically absorb</span></li>
-            <li><input type="checkbox" id="ch2-4"><span>Raise spend in stages, watching close rate as you go</span></li>
+            <li><input type="checkbox" id="ch2-1"><span>Create a premium tier that bundles your best people, materials, and guarantees</span></li>
+            <li><input type="checkbox" id="ch2-2"><span>Keep a standard tier for genuinely price-sensitive customers</span></li>
+            <li><input type="checkbox" id="ch2-3"><span>Always present the premium tier first</span></li>
+            <li><input type="checkbox" id="ch2-4"><span>Let people who want to spend less say so — don't assume it</span></li>
           </ul>
-          <div class="result-callout">A business spending a modest amount a month in a major metro area is often nowhere near its local ceiling.</div>
+          <div class="result-callout">A internally-certified "top tier" staff designation cost almost nothing to create, but gave the premium option a concrete reason to exist.</div>
         </div>
       </div>
     </div>
@@ -722,27 +910,26 @@
           <div class="chapter-head">
             <span class="chapter-num">03</span>
             <div class="chapter-title">
-              <span class="subtitle">The most overlooked lever</span>
-              <h3>Raise your price — a high close rate is your permission slip</h3>
+              <span class="subtitle">Remove the fear nobody says out loud</span>
+              <h3>Add a cap that kills the biggest hidden objection</h3>
             </div>
           </div>
-          <p>A close rate north of 80% isn't proof your price is right — it's usually proof it's too low. If almost everyone says yes, the market is telling you it would still say yes at a higher number.</p>
-          <p>The rule of thumb: keep raising price until the combination of close rate and price actually starts to fall. Selling slightly fewer people at a meaningfully higher price is still a win — you're only in trouble once the total math goes down, not just the close rate.</p>
+          <p>For any service priced by time or usage, the unspoken fear is always the same: what if this costs far more than expected? Most competitors never address it, which means simply naming it — and guaranteeing a ceiling on cost — can be a meaningful edge on its own.</p>
+          <p>The guarantee doesn't have to be generous to the point of risk. It just has to exist, clearly, before the customer has to ask.</p>
           <div class="term-box">
-            <span class="term-label">KEY TERM · PRICE × CLOSE RATE</span>
-            <p>The number that actually matters. Selling 10% fewer people at 20% more revenue per sale is a net win, not a loss — track the product, not just the percentage.</p>
+            <span class="term-label">KEY CONCEPT · SEEDS OF DOUBT</span>
+            <p>Naming a real risk your competitors don't address — and showing you've already solved it — plants a doubt about the cheaper option without ever criticizing it directly.</p>
           </div>
-          <p style="font-size:0.85rem;">For a more rigorous way to find your real price ceiling, see <a href="field-notes.html#pricing" style="color:var(--turquoise-2); font-weight:700; text-decoration:none;">Founder Field Notes → Pricing &amp; Offers</a>.</p>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch3">
-            <li><input type="checkbox" id="ch3-1"><span>Calculate your current close rate</span></li>
-            <li><input type="checkbox" id="ch3-2"><span>If it's 80%+, test a 15–20% price increase</span></li>
-            <li><input type="checkbox" id="ch3-3"><span>Track price × close rate together, not close rate alone</span></li>
-            <li><input type="checkbox" id="ch3-4"><span>Keep raising in stages until that combined number actually drops</span></li>
+            <li><input type="checkbox" id="ch3-1"><span>Identify the biggest unspoken fear about your type of service</span></li>
+            <li><input type="checkbox" id="ch3-2"><span>Build a guarantee or cap that directly answers it</span></li>
+            <li><input type="checkbox" id="ch3-3"><span>State it clearly and early, before a customer has to ask</span></li>
+            <li><input type="checkbox" id="ch3-4"><span>Ask competitors' customers (informally) whether they were ever offered the same</span></li>
           </ul>
-          <div class="result-callout">In the case study, a 20% price increase was followed by close rate going up, not down — average order value nearly doubled over 90 days.</div>
+          <div class="result-callout">A simple price cap, rarely offered by competitors, reframed the entire pricing conversation around safety instead of just the hourly number.</div>
         </div>
       </div>
     </div>
@@ -754,26 +941,26 @@
           <div class="chapter-head">
             <span class="chapter-num">04</span>
             <div class="chapter-title">
-              <span class="subtitle">Fund growth without new capital</span>
-              <h3>Collect payment upfront, not as-you-go</h3>
+              <span class="subtitle">A cash reward isn't always the best reward</span>
+              <h3>Turn referral partners into status-gainers, not bounty hunters</h3>
             </div>
           </div>
-          <p>If customers are going to pay for something eventually anyway, collecting that money sooner — in full or through financing — is one of the simplest cash-flow unlocks available. It shortens the gap between doing the work and having cash to reinvest.</p>
-          <p>Frame it as a normal choice, not a big ask: "credit card in full, or financing" as the two default options, with pay-as-you-go quietly becoming the fallback rather than the default.</p>
+          <p>A flat referral discount treats a partner like a commission-based lead source. But for someone whose reputation depends on being trusted, being able to say "I got you upgraded to the premium experience, for free" often means far more than a small kickback — because it makes them look good to the person they referred.</p>
+          <p>Swapping a cash-style discount for a premium upgrade costs a similar amount to deliver, but changes what the referral actually represents to the person making it.</p>
           <div class="term-box">
-            <span class="term-label">KEY TERM · CASH CONVERSION CYCLE</span>
-            <p>The gap between making a sale and having that money actually sitting in your account. Getting paid upfront closes most of that gap immediately.</p>
+            <span class="term-label">KEY CONCEPT · A NEW OFFER TO PARTNERS</span>
+            <p>Instead of a small discount, give the referred customer a free upgrade to your premium tier. The partner looks generous and well-connected; the customer gets a noticeably better experience; the cost to you barely changes.</p>
           </div>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch4">
-            <li><input type="checkbox" id="ch4-1"><span>Offer two clear options: pay in full, or finance the full amount</span></li>
-            <li><input type="checkbox" id="ch4-2"><span>Make pay-as-you-go the fallback, not the headline option</span></li>
-            <li><input type="checkbox" id="ch4-3"><span>Collect a payment method at intake, framed as completing a profile</span></li>
-            <li><input type="checkbox" id="ch4-4"><span>Track how much faster cash lands in the bank each month</span></li>
+            <li><input type="checkbox" id="ch4-1"><span>Replace a flat referral discount with a free upgrade to your best tier</span></li>
+            <li><input type="checkbox" id="ch4-2"><span>Frame it to partners as something that makes them look good</span></li>
+            <li><input type="checkbox" id="ch4-3"><span>Ask referred customers to mention where they heard about you</span></li>
+            <li><input type="checkbox" id="ch4-4"><span>Compare referral volume before and after the change</span></li>
           </ul>
-          <div class="result-callout">This single change was reported as the biggest unlock of the entire 90 days — monthly revenue nearly tripled soon after.</div>
+          <div class="result-callout">A single referral channel was already generating roughly triple the profit of an average job — before this change was even made.</div>
         </div>
       </div>
     </div>
@@ -785,26 +972,26 @@
           <div class="chapter-head">
             <span class="chapter-num">05</span>
             <div class="chapter-title">
-              <span class="subtitle">Why this compounds</span>
-              <h3>Let the virtuous cycle of pricing do the rest</h3>
+              <span class="subtitle">One relationship can replace twenty</span>
+              <h3>Go after the organization, not just the individual</h3>
             </div>
           </div>
-          <p>Once price goes up and cash arrives sooner, something else opens up: room to reinvest in the actual experience. Better experience attracts a customer who cares less about price and more about outcome — which supports charging more, which funds even better delivery and talent.</p>
-          <p>This is the opposite of competing on price. For high-stakes purchases especially, people often read a higher price as lower risk, not higher cost — nobody wants the cheapest option for something irreversible.</p>
+          <p>Winning over one well-connected individual is good. Winning over the organization they belong to — where dozens of similar people work — multiplies that same relationship many times over, for roughly the same amount of relationship-building effort.</p>
+          <p>Once one contact inside an organization responds well, showing up in person to meet the wider group and offering the same premium treatment to everyone there turns a single relationship into an entire referral network at once.</p>
           <div class="term-box">
-            <span class="term-label">KEY TERM · PRICE-QUALITY CORRELATION</span>
-            <p>For big, irreversible decisions, people often assume a higher price means lower risk. Being the cheapest option can actually make buyers more nervous, not less.</p>
+            <span class="term-label">KEY CONCEPT · THE ORGANIZATION-LEVEL DEAL</span>
+            <p>Rather than winning one partner at a time, offer better terms to an entire group at once, in exchange for being the default choice their whole network refers to.</p>
           </div>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch5">
-            <li><input type="checkbox" id="ch5-1"><span>Reinvest new margin into the customer experience, not just profit</span></li>
-            <li><input type="checkbox" id="ch5-2"><span>Resist the urge to compete down on price when a competitor undercuts you</span></li>
-            <li><input type="checkbox" id="ch5-3"><span>Use the extra margin to bring on better talent</span></li>
-            <li><input type="checkbox" id="ch5-4"><span>Let the improved experience justify the next price increase</span></li>
+            <li><input type="checkbox" id="ch5-1"><span>Identify organizations made up of many potential individual partners</span></li>
+            <li><input type="checkbox" id="ch5-2"><span>Land one strong relationship inside the organization first</span></li>
+            <li><input type="checkbox" id="ch5-3"><span>Show up in person to meet the wider group once you have a foothold</span></li>
+            <li><input type="checkbox" id="ch5-4"><span>Offer the group a deal, in exchange for being the default recommendation</span></li>
           </ul>
-          <div class="result-callout">Higher prices were followed by happier customers — because the extra revenue was visibly reinvested in their experience.</div>
+          <div class="result-callout">A single organization-level relationship was identified as the single highest-leverage move available — worth far more than another round of individual outreach.</div>
         </div>
       </div>
     </div>
@@ -816,26 +1003,26 @@
           <div class="chapter-head">
             <span class="chapter-num">06</span>
             <div class="chapter-title">
-              <span class="subtitle">Reduce friction, not effort</span>
-              <h3>Tighten the sales process with education, not pressure</h3>
+              <span class="subtitle">Generic outreach reads as generic</span>
+              <h3>Personalize outreach at scale instead of blasting everyone the same message</h3>
             </div>
           </div>
-          <p>Every sales process has two real levers: qualification (getting the right people to show up) and education (getting them into the right mindset before you ask them to buy). If your sales conversations run long or get stuck on the same objections, the fix is usually more education earlier — not a harder close.</p>
-          <p>A short pre-education video, watched while a customer is already waiting, can cover the pains they recognize, the proof that it works, and the objections they were already going to raise — before the actual conversation even starts.</p>
+          <p>A single templated message sent to hundreds of contacts performs worse than the same idea, lightly personalized to each recipient — and it's also more likely to get flagged as spam. What used to require real time per message can now be done automatically, at volume, using each contact's own available details.</p>
+          <p>The goal isn't to fake a relationship. It's to make sure the very first message actually acknowledges who it's going to, instead of reading like it went to everyone.</p>
           <div class="term-box">
-            <span class="term-label">KEY TERM · VIDEO SALES LETTER (VSL)</span>
-            <p>A short pre-recorded video that handles part of the sales conversation before it happens — surfacing the problem, showing evidence it can be solved, and getting ahead of objections.</p>
+            <span class="term-label">KEY CONCEPT · PERSONALIZATION AT SCALE</span>
+            <p>Using each contact's own details to customize outreach automatically, rather than sending one identical message to an entire list. It performs better and is less likely to be filtered out entirely.</p>
           </div>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch6">
-            <li><input type="checkbox" id="ch6-1"><span>Map every step from first contact to money collected</span></li>
-            <li><input type="checkbox" id="ch6-2"><span>Find the point where customers hesitate or ask the same questions</span></li>
-            <li><input type="checkbox" id="ch6-3"><span>Build a short video: pain, proof, common objections answered</span></li>
-            <li><input type="checkbox" id="ch6-4"><span>Play it during any natural waiting period before the sales conversation</span></li>
+            <li><input type="checkbox" id="ch6-1"><span>Build a list with whatever personal details are realistically available</span></li>
+            <li><input type="checkbox" id="ch6-2"><span>Generate a personalized opening line for each contact automatically</span></li>
+            <li><input type="checkbox" id="ch6-3"><span>Quickly review the batch before sending, rather than sending blind</span></li>
+            <li><input type="checkbox" id="ch6-4"><span>Test personalized outreach against a generic version to confirm the lift</span></li>
           </ul>
-          <div class="result-callout">Adding a short video before the pricing conversation was described as pure upside — smoother process, fewer questions, no downside noticed.</div>
+          <div class="result-callout">Personalizing the very first message was expected to noticeably lift response rates while also reducing the odds of being marked as spam.</div>
         </div>
       </div>
     </div>
@@ -847,89 +1034,26 @@
           <div class="chapter-head">
             <span class="chapter-num">07</span>
             <div class="chapter-title">
-              <span class="subtitle">The most common mistake in the room</span>
-              <h3>Nail it before you scale it</h3>
+              <span class="subtitle">The proof was already happening on-site</span>
+              <h3>Make your own team part of the content engine</h3>
             </div>
           </div>
-          <p>The instinct, especially in brick-and-mortar businesses, is to open another location the moment growth stalls. Almost always, the better move is to make the location you already have significantly more profitable first — because a second unit just multiplies whatever problems the first one still has.</p>
-          <p>Only once a single location is running near its real ceiling does adding a second one start to make the math meaningfully better, rather than just meaningfully more complicated.</p>
+          <p>Asking for a review as the owner can feel transactional. Having the person actually on-site ask, on behalf of a small reward for the team rather than the business, tends to get a noticeably better response — because it's framed as helping a person, not a company.</p>
+          <p>Pairing that with a simple before-and-after clip from every job — empty to full, then full to empty — turns routine work into proof, without requiring any extra production effort.</p>
           <div class="term-box">
-            <span class="term-label">MYTH VS. REALITY</span>
-            <p>Myth: "we need more locations to make more money." Reality: fix and max out the one you have — that's usually what unlocks the money you were trying to get from a second location anyway.</p>
+            <span class="term-label">KEY TERM · BEFORE/AFTER SOCIAL POST</span>
+            <p>A content format where you show a transformation — in this case, a space before and after a job — as simple, repeatable proof of what you actually deliver.</p>
           </div>
-          <p style="font-size:0.85rem;">See this exact judgment call made live, in a real "not yet" decision, in <a href="value-leader-playbook.html#results" style="color:var(--turquoise-2); font-weight:700; text-decoration:none;">The Value Leader Playbook</a>.</p>
         </div>
         <div class="checklist-card">
           <h4>Do this</h4>
           <ul class="checklist" data-group="ch7">
-            <li><input type="checkbox" id="ch7-1"><span>Confirm the core bottleneck from Move 1 is genuinely solved</span></li>
-            <li><input type="checkbox" id="ch7-2"><span>Push your current location's profitability as high as it will go</span></li>
-            <li><input type="checkbox" id="ch7-3"><span>Only then model the real math on a second location</span></li>
+            <li><input type="checkbox" id="ch7-1"><span>Have your on-site team lead ask for reviews, not the owner</span></li>
+            <li><input type="checkbox" id="ch7-2"><span>Offer a small team-level reward tied to review volume</span></li>
+            <li><input type="checkbox" id="ch7-3"><span>Capture a simple before-and-after clip on every job</span></li>
+            <li><input type="checkbox" id="ch7-4"><span>Close each post with the review it earned</span></li>
           </ul>
-          <div class="result-callout">The practice hit its growth goal without opening a single new location — by making the existing one significantly better instead.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chapter 8 -->
-    <div class="chapter">
-      <div class="chapter-grid">
-        <div>
-          <div class="chapter-head">
-            <span class="chapter-num">08</span>
-            <div class="chapter-title">
-              <span class="subtitle">The lever that touches everything else</span>
-              <h3>Win on speed to lead</h3>
-            </div>
-          </div>
-          <p>For anyone shopping around, the business that responds first usually wins the customer — often within about 60 seconds, not hours or days. Speed compounds across the entire business: it lowers cost per customer, raises close rates, raises show-up rates, and reduces how much competitors even factor into the decision.</p>
-          <p>If your process has customers waiting weeks to even be seen, that delay is quietly costing far more revenue than most owners realize — especially for anyone in genuine discomfort or urgency.</p>
-          <div class="term-box">
-            <span class="term-label">KEY TERM · SPEED TO LEAD</span>
-            <p>The gap between a lead arriving and your first response. People actively comparing options tend to go with whoever calls back first — which is why this is measured in seconds, not business days.</p>
-          </div>
-        </div>
-        <div class="checklist-card">
-          <h4>Do this</h4>
-          <ul class="checklist" data-group="ch8">
-            <li><input type="checkbox" id="ch8-1"><span>Measure your current average time-to-first-response</span></li>
-            <li><input type="checkbox" id="ch8-2"><span>Remove any queue between a lead arriving and first contact</span></li>
-            <li><input type="checkbox" id="ch8-3"><span>Shrink diagnostic or intake time so people are seen sooner</span></li>
-            <li><input type="checkbox" id="ch8-4"><span>Track speed as a KPI on the same dashboard as revenue</span></li>
-          </ul>
-          <div class="result-callout">Cutting the booking wait from 2–4 weeks to about 7 days lifted close rates and show-up rates at the same time.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chapter 9 -->
-    <div class="chapter">
-      <div class="chapter-grid">
-        <div>
-          <div class="chapter-head">
-            <span class="chapter-num">09</span>
-            <div class="chapter-title">
-              <span class="subtitle">Free, and already happening</span>
-              <h3>Let your own results become your marketing</h3>
-            </div>
-          </div>
-          <p>Every business that produces a visible transformation is sitting on marketing it isn't using. The fix is mostly about capture, not creativity: document the before, capture the reveal moment, and post it in more than one format.</p>
-          <p>Note the sequencing here — organic content is worth doing, but only after the earlier moves. Posting more content into a business that's still capacity-constrained just adds to a backlog instead of adding revenue.</p>
-          <div class="term-box">
-            <span class="term-label">KEY TERM · ORGANIC CONTENT</span>
-            <p>Anything you publish without paying to promote it. Its reach comes from how much you post and how good it is — not from a media budget.</p>
-          </div>
-        </div>
-        <div class="checklist-card">
-          <h4>Do this</h4>
-          <ul class="checklist" data-group="ch9">
-            <li><input type="checkbox" id="ch9-1"><span>Capture a documented "before" for every customer, every time</span></li>
-            <li><input type="checkbox" id="ch9-2"><span>Capture the reveal or "after" moment on camera</span></li>
-            <li><input type="checkbox" id="ch9-3"><span>Post it three ways: short story, carousel, and a case-study breakdown</span></li>
-            <li><input type="checkbox" id="ch9-4"><span>End every post with one clear call to action</span></li>
-            <li><input type="checkbox" id="ch9-5"><span>Only prioritize this once Moves 1–8 are already in motion</span></li>
-          </ul>
-          <div class="result-callout">This lever was intentionally saved for last — it multiplies results once supply and price are already fixed, not before.</div>
+          <div class="result-callout">Making the ask about the team's reward, not the owner's request, was expected to meaningfully raise how often customers actually left a review.</div>
         </div>
       </div>
     </div>
@@ -939,50 +1063,41 @@
 
 <section class="pullquote">
   <div class="wrap">
-    <p>Scaling isn't the thing that makes a business profitable. Getting one location, one offer, one process to work exceptionally well is what generates the cash — and the confidence — to expand at all.</p>
-    <div class="attribution">The core idea behind Move 07</div>
+    <p>It's often easier to sell one high-value offer to one customer with real money than to sell many small, cheap versions of it to a crowd that's counting every dollar.</p>
+    <div class="attribution">The core idea behind Move 02</div>
   </div>
 </section>
 
 <section id="results" class="section-alt">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">90 DAYS LATER</span>
-      <h2>What the sequence actually produced</h2>
-      <p>No new location. No new marketing channel. No outside capital. Just removing what was capping a business that already existed.</p>
+      <span class="kicker">THE DECISION</span>
+      <h2>Rejected — but not because the plan was wrong</h2>
+      <p>Not every case study in this hub ends with a golden ticket, and this one is worth including honestly for exactly that reason.</p>
     </div>
-    <div class="results-grid">
-      <div class="result-card">
-        <h4>Monthly revenue</h4>
-        <div class="before-after"><span class="from">$160K</span><span class="arrow">→</span><span class="to">~$500K</span></div>
-        <div class="cap">Average month, before vs. on-track figure by day 90</div>
+    <div class="context-grid">
+      <div class="context-card">
+        <h3>The verdict</h3>
+        <p>After building out this entire sequence, the answer was still a "fail" for the purposes of the show's year-long mentorship prize.</p>
+        <div class="tag-row"><span class="tag coral">Not selected</span></div>
       </div>
-      <div class="result-card">
-        <h4>Annual run rate</h4>
-        <div class="before-after"><span class="from">$2.8M</span><span class="arrow">→</span><span class="to">$3.3M</span></div>
-        <div class="cap">In the final weeks alone, on top of the monthly jump above</div>
+      <div class="context-card">
+        <h3>The actual reason</h3>
+        <p>The plan itself was never in question — it was described as something that would clearly work. The concern was one of stage: the business was judged to be further from multi-location growth than the format was built to support.</p>
+        <div class="tag-row"><span class="tag">A fit decision, not a quality one</span></div>
       </div>
-      <div class="result-card">
-        <h4>Average treatment value</h4>
-        <div class="before-after"><span class="from">$28K</span><span class="arrow">→</span><span class="to">$44K</span></div>
-        <div class="cap">After a 20% price increase — close rate went up, not down</div>
+      <div class="context-card">
+        <h3>The reaction</h3>
+        <p>Rather than treat the decision as a verdict on the business, the founder committed to running the full 90-day plan anyway, prize or not.</p>
+        <div class="tag-row"><span class="tag">Executed regardless</span></div>
       </div>
-      <div class="result-card">
-        <h4>Time to first appointment</h4>
-        <div class="before-after"><span class="from">15–30 days</span><span class="arrow">→</span><span class="to">~7 days</span></div>
-        <div class="cap">Freed-up capacity meant new patients could be seen sooner</div>
-      </div>
-      <div class="result-card">
-        <h4>Practicing doctors</h4>
-        <div class="before-after"><span class="from">1</span><span class="arrow">→</span><span class="to">3</span></div>
-        <div class="cap">Two associates trained to take on the handed-off visits</div>
-      </div>
-      <div class="result-card">
-        <h4>New locations needed</h4>
-        <div class="before-after"><span class="from">Assumed: 3–4</span><span class="arrow">→</span><span class="to">Zero</span></div>
-        <div class="cap">The growth goal was reached without expanding real estate</div>
+      <div class="context-card">
+        <h3>The lesson</h3>
+        <p>A "no" tied to timing or fit is a different thing entirely from a "no" tied to merit. Worth separating the two clearly before internalizing either one as the final word.</p>
+        <div class="tag-row"><span class="tag coral">Rejection ≠ failure</span></div>
       </div>
     </div>
+    <p style="text-align:center; margin-top:22px; font-size:0.9rem;">This pairs directly with <a href="bottleneck-playbook.html#chapters" style="color:var(--turquoise-2); font-weight:700; text-decoration:none;">Move 07 of the Bottleneck Playbook</a> — nailing one location before chasing more of them.</p>
   </div>
 </section>
 
@@ -991,24 +1106,24 @@
     <div class="section-head">
       <span class="kicker">WHERE PEOPLE GET STUCK</span>
       <h2>Common ways this sequence goes wrong</h2>
-      <p>Watching the moves is easy. Here's what tends to derail people when they actually try to apply them.</p>
+      <p>The ideas are simple to agree with. Here's what tends to derail people when they try to apply them.</p>
     </div>
     <div class="pitfall-grid">
       <div class="pitfall-card">
-        <h4>Scaling before fixing the bottleneck</h4>
-        <p>Adding a location, a channel, or headcount before Move 1 is solved just multiplies the same constraint — it rarely fixes it.</p>
+        <h4>Trying to win a price war you didn't choose</h4>
+        <p>If your service can be compared on a single shared number, it will be — the fix is adding real, named differences, not just adjusting that number.</p>
       </div>
       <div class="pitfall-card">
-        <h4>Mistaking a high close rate for the right price</h4>
-        <p>A close rate above 80% usually means there's pricing power sitting unused, not proof the price is already correct.</p>
+        <h4>Treating a strong referral channel as a side experiment</h4>
+        <p>A channel quietly outperforming everything else by several times deserves direct investment, not an occasional mention.</p>
       </div>
       <div class="pitfall-card">
-        <h4>Treating the founder as irreplaceable</h4>
-        <p>The belief that "no one can do this like I can" is often just an untested assumption — one that quietly caps growth on its own.</p>
+        <h4>Sending one message to an entire list</h4>
+        <p>Generic outreach at scale often converts worse, and risks looking like spam, compared to the same message lightly personalized.</p>
       </div>
       <div class="pitfall-card">
-        <h4>Adding marketing to a capacity problem</h4>
-        <p>More leads into a business that can't deliver more work doesn't create growth. It just creates a longer, more frustrated waiting list.</p>
+        <h4>Treating a "no" about timing as a "no" about quality</h4>
+        <p>Not every rejection is a verdict on the work. Sometimes it's simply about fit, stage, or format — worth checking before drawing the larger conclusion.</p>
       </div>
     </div>
   </div>
@@ -1017,7 +1132,7 @@
 <footer>
   <div class="wrap">
     <h3>About this guide</h3>
-    <p>This hub is an independent, educational breakdown created to make a real scaling framework easier to actually apply, step by step. The underlying case study and teaching points are drawn from a coaching conversation between business educator Alex Hormozi and a dental-practice owner, published publicly on YouTube as part of "The Game w/ Alex Hormozi."</p>
+    <p>This guide is an independent, educational breakdown created to make a real pricing and differentiation strategy easier to actually apply, step by step. The underlying case study and teaching points are drawn from a coaching conversation between business educator Alex Hormozi and the founder of a local moving and delivery company, published publicly on YouTube as part of "The Game w/ Alex Hormozi" and its "Scale or Fail" series.</p>
     <p>This guide is not affiliated with, endorsed by, or produced by Alex Hormozi or Acquisition.com. All figures are approximate and paraphrased from that publicly available conversation for teaching purposes. For the original conversation and additional resources, see the source video.</p>
     <p class="disclaimer">Educational content only. Every business is different — treat these as a starting sequence to test in your own numbers, not a guarantee of results.</p>
     <p style="margin-top:22px;"><a class="src-link" href="index.html">&larr; Back to the Compass hub</a></p>
@@ -1025,6 +1140,7 @@
 </footer>
 
 <script>
+
 (function(){
   // ---------- Font size control ----------
   var sizes = ['15px','17px','19.5px'];
@@ -1062,7 +1178,7 @@
   setTheme('light');
 
   // ---------- Checklist persistence via window.storage ----------
-  var STORAGE_KEY = 'bottleneck-playbook-progress';
+  var STORAGE_KEY = 'value-leader-playbook-progress';
   var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.checklist input[type="checkbox"]'));
   var total = checkboxes.length;
   var chip = document.getElementById('progressChip');
@@ -1126,6 +1242,7 @@
 
   loadState();
 })();
+
 </script>
 
 </body>
